@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/projeto.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/EquipeController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/IEquipeController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/ProjetoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/util/HibernateUtil.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/RequisitoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/LogController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/requisito.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/IPessoaController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/casetool/CaseTool.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/hibernate.cfg.xml</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/funcao.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/ILogController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/LoginController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/FuncaoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/IFuncaoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/IProjetoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/rel_pessoa_equipe.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/login.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/equipe.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/log.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/IRequisitoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/PessoaController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/controller/interfaces/ILoginController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/CaseTool/src/model/pessoa.java</file>
+        </group>
+    </open-files>
+</project-private>
