@@ -22,5 +22,6 @@
     <mapping class="model.requisito"/>
     <mapping class="model.log"/>
     <mapping class="model.rel_pessoa_requisito"/>
+    <mapping class="model.niveis_acesso"/>
   </session-factory>
 </hibernate-configuration>

@@ -40,7 +40,7 @@ public class EquipeController implements IEquipeController{
             session.save(equipe);
             session.getTransaction().commit();
             session.close();
-            javax.swing.JOptionPane.showMessageDialog(null, "Função salva com sucesso!");  
+            javax.swing.JOptionPane.showMessageDialog(null, "Equipe salva com sucesso!");  
             return true;
         } catch (Exception ex) {
             Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,7 +125,7 @@ public class EquipeController implements IEquipeController{
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            equipes = session.createQuery("from equipe").list();
+            equipes = session.createQuery("from equipe eqp order by eqp.nome_equipe asc").list();
             session.close();
         } catch (Exception ex) {
             Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,6 +217,25 @@ public class EquipeController implements IEquipeController{
             Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public boolean verificaEquipeByNome(String nome) {
+       List<equipe> equipes = new ArrayList<equipe>();
+        try {
+    
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.getSessionFactory().openSession();
+            equipes = session.createQuery("from equipe where nome_equipe = :nome_equipe").setParameter("nome_equipe", nome).list();
+            session.close();
+    
+        } catch (Exception ex) {
+            Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         if (!equipes.isEmpty()) {
+            return true;
+        }
+        return false;
     }
     
 }

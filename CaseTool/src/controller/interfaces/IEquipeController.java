@@ -21,4 +21,5 @@ public interface IEquipeController {
     boolean inserirRelPessoasEquipe(int idpessoa, int idfuncao, int idequipe);
     List<rel_pessoa_equipe> retornaListaDeRelPessoasEquipeByIdequipe(int idequipe);
     rel_pessoa_equipe retornaRelPessoaEqpByIdpessoa(int idpessoa);
+    boolean verificaEquipeByNome(String nome);
 }

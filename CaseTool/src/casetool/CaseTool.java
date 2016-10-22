@@ -12,6 +12,8 @@ import model.*;
 import org.hibernate.Session;
 import controller.*;
 import javax.swing.JOptionPane;
+import telas.NovoJFrame;
+import telas.TelaLogin;
 import util.HibernateUtil;
 
 /**
@@ -26,11 +28,15 @@ public class CaseTool {
     public static void main(String[] args) {
         // TODO code application logic here
     //teste de conexao com o BD
-      PessoaController pess = PessoaController.getInstance();
-      pess.inserir("Pedro Ovo", true);
+//      PessoaController pess = PessoaController.getInstance();
+//      pess.inserir("Pedro Ovo", true);
      
       
-      
-     
+//        TelaLogin login = new TelaLogin();
+//        login.setVisible(true);
+//     
+
+        NovoJFrame novoj = new NovoJFrame();
+        novoj.setVisible(true);
     }
 }
