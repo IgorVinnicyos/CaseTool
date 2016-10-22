@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ public class equipe {
     @GeneratedValue
     private int idequipe;
     private String nome_equipe;
+    private Date data_criacao;
 
     public equipe(String nome_equipe) {
         this.nome_equipe = nome_equipe;
@@ -40,6 +42,16 @@ public class equipe {
     public int getIdequipe() {
         return idequipe;
     }
+
+    @Override
+    public String toString() {
+        return getNome_equipe();
+    }
+
+    public Date getData_criacao() {
+        return data_criacao;
+    }
+    
     
     
 }

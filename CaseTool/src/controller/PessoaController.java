@@ -22,6 +22,16 @@ import util.HibernateUtil;
 public class PessoaController implements IPessoaController{
    
     private static PessoaController instance;
+    private static pessoa pesLogin;
+    
+    public void setPesLogin(int id){
+        pesLogin = retornaPessoaById(id);
+    }
+    
+    public pessoa returnPesLogin(){
+        return pesLogin;
+    }
+    
   
     public static synchronized PessoaController getInstance(){
         if(instance == null){
@@ -31,10 +41,10 @@ public class PessoaController implements IPessoaController{
     }
 
     @Override
-    public boolean inserir(String nome, boolean sexo) {
+    public boolean inserir(String nome, boolean sexo, int nivel_acesso) {
       try{
             
-            pessoa pessoa = new pessoa(nome, sexo);
+            pessoa pessoa = new pessoa(nome, sexo, nivel_acesso);
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(pessoa);

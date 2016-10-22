@@ -21,6 +21,7 @@ import util.HibernateUtil;
 public class LoginController implements ILoginController {
 
     private static LoginController instance;
+    private login log;
     
     public static synchronized LoginController getInstance(){
         if(instance == null){
@@ -87,9 +88,14 @@ public class LoginController implements ILoginController {
         }
         if (!listaLogin.isEmpty()) {
             login login = listaLogin.get(0);
+            log = listaLogin.get(0);
             return true;
         }       
         return false;
+    }
+    
+    public int retornaIDPessoa(){
+        return log.getIdpessoa();
     }
     
 }
