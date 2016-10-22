@@ -31,11 +31,11 @@ public class ProjetoController implements IProjetoController{
     }
     
     @Override
-    public boolean inserir(String descricao, Date data_prazo, int idequipe, String nome) {
+    public boolean inserir(String descricao, Date data_prazo, int idequipe) {
         try {
             if (EquipeController.getInstance().verificaEquipeById(idequipe)) {
                 if (!descricao.isEmpty()) {
-                    projeto projeto = new projeto(descricao, data_prazo, idequipe, nome);
+                    projeto projeto = new projeto(descricao, data_prazo, idequipe);
                     Session session = HibernateUtil.getSessionFactory().openSession();
                     session.beginTransaction();
                     session.save(projeto);
@@ -158,26 +158,6 @@ public class ProjetoController implements IProjetoController{
             Logger.getLogger(ProjetoController.class.getName()).log(Level.SEVERE, null, ex);
         }  
         return null;
-    }
-
-    @Override
-    public boolean verificaProjetoByNome(String nome) {
-       List<projeto> projetos = new ArrayList<projeto>();
-        try {
-
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            projetos = session.createQuery("from projeto where nome = :nome").setParameter("nome", nome).list();
-            session.close();
-           
-        } catch (Exception ex) {
-            Logger.getLogger(ProjetoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-       if (!projetos.isEmpty()) {
-            return true;
-       }
-       return false; 
     }
     
 }

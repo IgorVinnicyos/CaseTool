@@ -15,13 +15,12 @@ import model.projeto;
  */
 public interface IProjetoController {
     
-    boolean inserir(String descricao, Date data_prazo, int idequipe, String nome);
+    boolean inserir(String descricao, Date data_prazo, int idequipe);
     void atualizar();
     void deletar(int idprojeto);
     boolean verificaProjetoById(int idprojeto);
     projeto retornaProjetoById(int idprojeto);
     List<projeto> retornaListaProjetos();
     List<projeto> retornaListaProjetosByIdEquipe(int idequipe);
-    boolean verificaProjetoByNome(String nome);
         
 }

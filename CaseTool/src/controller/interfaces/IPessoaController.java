@@ -14,7 +14,7 @@ import model.pessoa;
  */
 public interface IPessoaController {
     
-     boolean inserir(String nome, boolean sexo, int nivel_acesso);
+     boolean inserir(String nome, boolean sexo);
      void deletar(int idpessoa);
      void atualizar(int idpessoa, String nome, boolean sexo);
      pessoa retornaPessoaById(int idpessoa);

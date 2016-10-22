@@ -21,13 +21,10 @@ public class pessoa {
     private int idpessoa;
     private String nome;
     private boolean sexo;
-    private int nivel_acesso;
-    
 
-    public pessoa(String nome, boolean sexo, int nivel_acesso) {
+    public pessoa(String nome, boolean sexo) {
         this.nome = nome;
         this.sexo = sexo;
-        this.nivel_acesso = nivel_acesso;
     }
     public pessoa(){
         
@@ -50,14 +47,6 @@ public class pessoa {
 
     public int getIdpessoa() {
         return idpessoa;
-    }
-
-    public int getNivel_acesso() {
-        return nivel_acesso;
-    }
-
-    public void setNivel_acesso(int nivel_acesso) {
-        this.nivel_acesso = nivel_acesso;
     }
     
     

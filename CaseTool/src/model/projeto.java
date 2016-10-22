@@ -21,7 +21,6 @@ public class projeto {
     private int idprojeto;
     private Date data_entrada;
     private String descricao;
-    private String nome;
     private boolean concluido;
     private Date data_inicio;
     private Date data_termino;
@@ -32,11 +31,10 @@ public class projeto {
         
     }
 
-    public projeto(String descricao, Date data_prazo, int idequipe, String nome) {
+    public projeto(String descricao, Date data_prazo, int idequipe) {
         this.descricao = descricao;
         this.data_prazo = data_prazo;
         this.idequipe = idequipe;
-        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -93,14 +91,6 @@ public class projeto {
 
     public Date getData_entrada() {
         return data_entrada;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
     
     
