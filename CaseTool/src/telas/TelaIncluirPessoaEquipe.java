@@ -24,7 +24,6 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     /**
      * Creates new form TelaIncluirPessoaEquipe
      */
-    private CriadorTelas frame;
     private List<funcao> listaf;
     private equipe eqp;
     private pessoa pes;
@@ -69,10 +68,6 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
 
     public void setEqp(equipe eqp) {
         this.eqp = eqp;
-    }
-
-    public void setInterceptor(CriadorTelas frame) {
-        this.frame = frame;
     }
 
     /**

@@ -10,7 +10,11 @@ package telas;
  * @author matheus
  */
 abstract class CriadorTelas extends javax.swing.JFrame{
+    protected CriadorTelas frame;
     public void initialize(){
         
-    };
+    }
+    public void setInterceptor(CriadorTelas frame){
+        this.frame = frame;
+    }
 }

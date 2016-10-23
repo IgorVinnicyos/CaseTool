@@ -20,16 +20,11 @@ public class TelaCadastraFuncao extends CriadorTelas{
     /**
      * Creates new form TelaCadastraFuncao
      */
-    private CriadorTelas frame;
     private static TelaCadastraFuncao instance;
 
     private TelaCadastraFuncao() {
         initComponents();
         this.setLocationRelativeTo(null);
-    }
-
-    public void setInterceptor(CriadorTelas frame) {
-        this.frame = frame;
     }
     
     public static synchronized TelaCadastraFuncao getInstance(){

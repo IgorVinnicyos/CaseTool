@@ -17,12 +17,8 @@ public class TelaCadastraEquipe extends CriadorTelas{
     /**
      * Creates new form TelaCadastraEquipe
      */
-    private CriadorTelas frame;
+    
     private static TelaCadastraEquipe instance;
-
-    public void setInterceptor(CriadorTelas frame) {
-        this.frame = frame;
-    }
 
     private TelaCadastraEquipe() {
         initComponents();
@@ -110,10 +106,10 @@ public class TelaCadastraEquipe extends CriadorTelas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (frame != null){
-            frame.setVisible(true);
-            frame.initialize();
-            frame = null;
+        if (this.frame != null){
+            this.frame.setVisible(true);
+            this.frame.initialize();
+            this.frame = null;
             this.dispose();
         }else {
             TelaEquipes telae = TelaEquipes.getInstance();
