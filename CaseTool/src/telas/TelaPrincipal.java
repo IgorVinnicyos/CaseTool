@@ -42,6 +42,11 @@ public class TelaPrincipal extends CriadorTelas{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jButton3.setText("Projetos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -99,10 +104,15 @@ public class TelaPrincipal extends CriadorTelas{
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        TelaEquipes telae = new TelaEquipes();
+        TelaEquipes telae = TelaEquipes.getInstance();
         telae.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        instance = null;
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

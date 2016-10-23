@@ -29,7 +29,7 @@ public class TelaGerenciarEquipes extends CriadorTelas{
     private DefaultTableModel tablemodel;
     private static TelaGerenciarEquipes instance;
 
-    public TelaGerenciarEquipes() {
+    private TelaGerenciarEquipes() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.initialize();
@@ -41,7 +41,7 @@ public class TelaGerenciarEquipes extends CriadorTelas{
         if (listaeqp == null) {
             int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhum cadastro de equipe, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
             if (cadastro == 0) {
-                TelaCadastraEquipe telac = new TelaCadastraEquipe();
+                TelaCadastraEquipe telac = TelaCadastraEquipe.getInstance();
                 telac.setInterceptor(this);
                 telac.setVisible(true);
                 this.setVisible(false);
@@ -53,6 +53,12 @@ public class TelaGerenciarEquipes extends CriadorTelas{
                 jComboBox2.addItem(object);
             }
         }
+    }
+    public static synchronized TelaGerenciarEquipes getInstance(){
+        if(instance == null){
+            instance = new TelaGerenciarEquipes();
+        }
+        return instance;
     }
     
 
@@ -211,14 +217,15 @@ public class TelaGerenciarEquipes extends CriadorTelas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        TelaEquipes telae = new TelaEquipes();
+        TelaEquipes telae = TelaEquipes.getInstance();
         telae.setVisible(true);
+        this.instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(eqp != null){
-           TelaIncluirPessoaEquipe telai = new TelaIncluirPessoaEquipe();
+           TelaIncluirPessoaEquipe telai = TelaIncluirPessoaEquipe.getInstance();
         telai.setInterceptor(this);
         telai.setEqp((equipe) jComboBox2.getSelectedItem());
         telai.initialize();

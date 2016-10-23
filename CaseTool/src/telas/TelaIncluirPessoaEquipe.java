@@ -28,11 +28,19 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     private List<funcao> listaf;
     private equipe eqp;
     private pessoa pes;
+    private static TelaIncluirPessoaEquipe instance;
 
-    public TelaIncluirPessoaEquipe() {
+    private TelaIncluirPessoaEquipe() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+    
+    public static synchronized TelaIncluirPessoaEquipe getInstance(){
+        if(instance == null){
+            instance = new TelaIncluirPessoaEquipe();
+        }
+        return instance;
     }
 
     @Override
@@ -43,7 +51,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
         if (listaf == null) {
             int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Nenhuma função cadastrada, deseja fazer isso agora?", "Funções", JOptionPane.YES_NO_OPTION);
             if (cadastro == 0) {
-                TelaCadastraFuncao telac = new TelaCadastraFuncao();
+                TelaCadastraFuncao telac = TelaCadastraFuncao.getInstance();
                 telac.setInterceptor(this);
                 this.setVisible(false);
                 telac.setVisible(true);
@@ -195,6 +203,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
             frame = null;
             this.dispose();
         }
+        instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

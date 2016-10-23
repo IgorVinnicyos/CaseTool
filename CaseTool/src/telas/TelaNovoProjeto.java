@@ -19,13 +19,24 @@ public class TelaNovoProjeto extends CriadorTelas{
     /**
      * Creates new form TelaNovoProjeto
      */
-    public TelaNovoProjeto() {
+    private static TelaNovoProjeto instance;
+    private TelaNovoProjeto() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.initialize();
+    }
+    @Override
+    public void initialize(){
         List<equipe> lista = EquipeController.getInstance().retornaListaEquipes();
         for (equipe object : lista) {
             jComboBox1.addItem(object);
         }
+    }
+    public static synchronized TelaNovoProjeto getInstance(){
+        if(instance == null){
+            instance = new TelaNovoProjeto();
+        }
+        return instance;
     }
 
     /**
@@ -153,6 +164,7 @@ public class TelaNovoProjeto extends CriadorTelas{
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         TelaProjetos.getInstance().setVisible(true);
+        instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

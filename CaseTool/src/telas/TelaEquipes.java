@@ -16,11 +16,19 @@ public class TelaEquipes extends CriadorTelas{
     /**
      * Creates new form TelaEquipes
      */
-    public TelaEquipes() {
+    private static TelaEquipes instance;
+    private TelaEquipes() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
+    
+    public static synchronized TelaEquipes getInstance(){
+        if(instance == null){
+            instance = new TelaEquipes();
+        }
+        return instance;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,7 +102,7 @@ public class TelaEquipes extends CriadorTelas{
         if (PessoaController.getInstance().returnPesLogin().getNivel_acesso() != 1 && PessoaController.getInstance().returnPesLogin().getNivel_acesso() != 2) {
             javax.swing.JOptionPane.showMessageDialog(null, "Erro, você não possui nível de acesso suficiente para esta operação!");
         }else{
-            TelaCadastraEquipe telac = new TelaCadastraEquipe();
+            TelaCadastraEquipe telac = TelaCadastraEquipe.getInstance();
             telac.setVisible(true);
             this.dispose();
         }
@@ -103,11 +111,12 @@ public class TelaEquipes extends CriadorTelas{
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         TelaPrincipal.getInstance().setVisible(true);
+        this.instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        TelaGerenciarEquipes telag = new TelaGerenciarEquipes();
+        TelaGerenciarEquipes telag = TelaGerenciarEquipes.getInstance();
         telag.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

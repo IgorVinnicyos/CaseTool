@@ -14,9 +14,17 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     /**
      * Creates new form TelaGerenciarProjeto
      */
-    public TelaGerenciarProjeto() {
+    private static TelaGerenciarProjeto instance;
+    private TelaGerenciarProjeto() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public static synchronized TelaGerenciarProjeto getInstance(){
+        if(instance == null){
+            instance = new TelaGerenciarProjeto();
+        }
+        return instance;
     }
 
     /**
@@ -29,6 +37,11 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,6 +56,11 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.instance = null;
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

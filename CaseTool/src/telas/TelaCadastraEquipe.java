@@ -18,14 +18,22 @@ public class TelaCadastraEquipe extends CriadorTelas{
      * Creates new form TelaCadastraEquipe
      */
     private CriadorTelas frame;
+    private static TelaCadastraEquipe instance;
 
     public void setInterceptor(CriadorTelas frame) {
         this.frame = frame;
     }
 
-    public TelaCadastraEquipe() {
+    private TelaCadastraEquipe() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public static synchronized TelaCadastraEquipe getInstance(){
+        if(instance == null){
+            instance = new TelaCadastraEquipe();
+        }
+        return instance;
     }
 
     /**
@@ -108,9 +116,10 @@ public class TelaCadastraEquipe extends CriadorTelas{
             frame = null;
             this.dispose();
         }else {
-            TelaEquipes telae = new TelaEquipes();
+            TelaEquipes telae = TelaEquipes.getInstance();
             telae.setVisible(true);
         }
+        this.instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     /**

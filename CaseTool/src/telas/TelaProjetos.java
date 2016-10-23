@@ -103,6 +103,7 @@ public class TelaProjetos extends CriadorTelas{
         // TODO add your handling code here:
         TelaPrincipal.getInstance().setVisible(true);
         this.dispose();
+        instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -115,7 +116,7 @@ public class TelaProjetos extends CriadorTelas{
             if (listae == null) {
                 int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhuma equipe cadastrada, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
                 if (cadastro == 0) {
-                    TelaCadastraEquipe telac = new TelaCadastraEquipe();
+                    TelaCadastraEquipe telac = TelaCadastraEquipe.getInstance();
                     telac.setInterceptor(this);
                     telac.setVisible(true);
                     this.setVisible(false);
@@ -124,7 +125,7 @@ public class TelaProjetos extends CriadorTelas{
                 }
 
             } else {
-                TelaNovoProjeto telan = new TelaNovoProjeto();
+                TelaNovoProjeto telan = TelaNovoProjeto.getInstance();
                 telan.setVisible(true);
                 this.dispose();
             }

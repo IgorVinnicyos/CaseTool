@@ -21,14 +21,22 @@ public class TelaCadastraFuncao extends CriadorTelas{
      * Creates new form TelaCadastraFuncao
      */
     private CriadorTelas frame;
+    private static TelaCadastraFuncao instance;
 
-    public TelaCadastraFuncao() {
+    private TelaCadastraFuncao() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
     public void setInterceptor(CriadorTelas frame) {
         this.frame = frame;
+    }
+    
+    public static synchronized TelaCadastraFuncao getInstance(){
+        if(instance == null){
+            instance = new TelaCadastraFuncao();
+        }
+        return instance;
     }
 
     /**
@@ -107,6 +115,7 @@ public class TelaCadastraFuncao extends CriadorTelas{
             frame = null;
             this.dispose();
         }
+        this.instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

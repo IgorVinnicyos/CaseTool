@@ -17,9 +17,16 @@ public class TelaLogin extends CriadorTelas{
     /**
      * Creates new form TelaLogin
      */
-    public TelaLogin() {
+    private static TelaLogin instance;
+    private TelaLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    public static synchronized TelaLogin getInstance(){
+        if(instance == null){
+            instance = new TelaLogin();
+        }
+        return instance;
     }
 
     /**
@@ -118,7 +125,7 @@ public class TelaLogin extends CriadorTelas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-
+        this.instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     /**
