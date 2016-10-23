@@ -6,6 +6,7 @@
 package telas;
 
 import controller.EquipeController;
+import javax.swing.JFrame;
 
 /**
  *
@@ -16,10 +17,10 @@ public class TelaCadastraEquipe extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastraEquipe
      */
-    private static int interceptor = 0;
+    private JFrame frame;
 
-    public void setInterceptor(int interceptor) {
-        this.interceptor = interceptor;
+    public void setInterceptor(JFrame frame) {
+        this.frame = frame;
     }
 
     public TelaCadastraEquipe() {
@@ -101,17 +102,11 @@ public class TelaCadastraEquipe extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (interceptor == 1) {
-            TelaNovoProjeto telan = new TelaNovoProjeto();
-            telan.setVisible(true);
-            interceptor = 0;
+        if (frame != null){
+            frame.setVisible(true);
+            frame = null;
             this.dispose();
-        } else if (interceptor == 2) {
-            TelaGerenciarEquipes telag = new TelaGerenciarEquipes();
-            telag.setVisible(true);
-            interceptor = 0;
-            this.dispose();
-        } else {
+        }else {
             TelaEquipes telae = new TelaEquipes();
             telae.setVisible(true);
         }

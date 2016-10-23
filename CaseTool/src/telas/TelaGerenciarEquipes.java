@@ -36,7 +36,7 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
             int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhum cadastro de equipe, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
             if (cadastro == 0) {
                 TelaCadastraEquipe telac = new TelaCadastraEquipe();
-                telac.setInterceptor(2);
+                telac.setInterceptor(this);
                 telac.setVisible(true);
                 this.setVisible(false);
             } else {

@@ -116,7 +116,7 @@ public class TelaProjetos extends javax.swing.JFrame {
                 int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhuma equipe cadastrada, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
                 if (cadastro == 0) {
                     TelaCadastraEquipe telac = new TelaCadastraEquipe();
-                    telac.setInterceptor(1);
+                    telac.setInterceptor(this);
                     telac.setVisible(true);
                     this.setVisible(false);
                 } else {
