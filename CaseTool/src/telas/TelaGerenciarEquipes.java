@@ -197,6 +197,7 @@ public class TelaGerenciarEquipes extends CriadorTelas{
         jLabel4.setText(f.format(eqp.getData_criacao()));
         listarel = EquipeController.getInstance().retornaListaDeRelPessoasEquipeByIdequipe(eqp.getIdequipe());
         tablemodel = (DefaultTableModel) jTable1.getModel();
+        tablemodel.setNumRows(0);
         while (tablemodel.getRowCount() > 0) {
             tablemodel.removeRow(0);
         }
