@@ -9,7 +9,7 @@ package telas;
  *
  * @author matheus
  */
-public class TelaGerenciarProjeto extends javax.swing.JFrame {
+public class TelaGerenciarProjeto extends CriadorTelas{
 
     /**
      * Creates new form TelaGerenciarProjeto
@@ -78,6 +78,7 @@ public class TelaGerenciarProjeto extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

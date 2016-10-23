@@ -150,6 +150,7 @@ public class EquipeController implements IEquipeController{
                 session.save(rel1);
                 session.getTransaction().commit();
                 session.close();
+                javax.swing.JOptionPane.showMessageDialog(null, "Incluso com exito!");
                 return true;
             } else {
                 if (!existeEqp) {
@@ -236,6 +237,30 @@ public class EquipeController implements IEquipeController{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean verificaPessoaOcupada(int idpessoa, int idequipe) {
+        try {
+           if(PessoaController.getInstance().verificaPessoaById(idpessoa)){
+                List<rel_pessoa_equipe> lista = new ArrayList<rel_pessoa_equipe>();
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                lista = session.createQuery("from rel_pessoa_equipe where idpessoa = :idpessoa and idequipe = :idequipe").setParameter("idpessoa", idpessoa).setParameter("idequipe", idequipe).list();
+                session.close();
+                
+                if (!lista.isEmpty()) {
+                    return false;
+                } 
+               
+           }else if(!PessoaController.getInstance().verificaPessoaById(idpessoa)){
+               javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique se o id da pessoa: " + idpessoa + " existe!");
+           }
+                     
+        } catch (Exception ex) {
+            Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
     
 }

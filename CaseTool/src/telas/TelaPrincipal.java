@@ -9,7 +9,7 @@ package telas;
  *
  * @author matheus
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class TelaPrincipal extends CriadorTelas{
 
     /**
      * Creates new form TelaPrincipal
@@ -145,4 +145,5 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables
+
 }

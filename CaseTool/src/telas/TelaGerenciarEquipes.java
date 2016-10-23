@@ -19,7 +19,7 @@ import model.rel_pessoa_equipe;
  *
  * @author matheus
  */
-public class TelaGerenciarEquipes extends javax.swing.JFrame {
+public class TelaGerenciarEquipes extends CriadorTelas{
 
     /**
      * Creates new form TelaGerenciarEquipes
@@ -27,10 +27,16 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
     private equipe eqp;
     private List<rel_pessoa_equipe> listarel;
     private DefaultTableModel tablemodel;
+    private static TelaGerenciarEquipes instance;
 
     public TelaGerenciarEquipes() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.initialize();
+    }
+    @Override
+    public void initialize(){
+        jComboBox2.removeAll();
         List<equipe> listaeqp = EquipeController.getInstance().retornaListaEquipes();
         if (listaeqp == null) {
             int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhum cadastro de equipe, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
@@ -47,8 +53,8 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
                 jComboBox2.addItem(object);
             }
         }
-
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +78,7 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -115,6 +122,11 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton2.setText("Incluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Excluir");
 
@@ -202,6 +214,21 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
         telae.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(eqp != null){
+           TelaIncluirPessoaEquipe telai = new TelaIncluirPessoaEquipe();
+        telai.setInterceptor(this);
+        telai.setEqp((equipe) jComboBox2.getSelectedItem());
+        telai.initialize();
+        this.setVisible(false);
+//        telai.setVisible(true); 
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null, "Erro, selecione uma equipe!");
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,4 +277,5 @@ public class TelaGerenciarEquipes extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -11,7 +11,7 @@ import controller.PessoaController;
  *
  * @author matheus
  */
-public class TelaEquipes extends javax.swing.JFrame {
+public class TelaEquipes extends CriadorTelas{
 
     /**
      * Creates new form TelaEquipes
@@ -35,6 +35,7 @@ public class TelaEquipes extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -151,4 +152,5 @@ public class TelaEquipes extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
 }

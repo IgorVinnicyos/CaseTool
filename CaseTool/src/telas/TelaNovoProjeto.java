@@ -14,7 +14,7 @@ import model.equipe;
  *
  * @author matheus
  */
-public class TelaNovoProjeto extends javax.swing.JFrame {
+public class TelaNovoProjeto extends CriadorTelas{
 
     /**
      * Creates new form TelaNovoProjeto
@@ -228,4 +228,5 @@ public class TelaNovoProjeto extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
 }

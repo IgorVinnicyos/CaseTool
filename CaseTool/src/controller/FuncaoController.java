@@ -39,7 +39,7 @@ public class FuncaoController implements IFuncaoController{
             session.save(funcao);
             session.getTransaction().commit();
             session.close();
-            javax.swing.JOptionPane.showMessageDialog(null, "Função salva com sucesso!");
+            javax.swing.JOptionPane.showMessageDialog(null, "Função salva com sucesso! Id: "+funcao.getIdfuncao());
             return true;
             
         }catch(Exception ex) {

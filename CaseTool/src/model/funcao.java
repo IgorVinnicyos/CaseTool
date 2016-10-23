@@ -40,6 +40,9 @@ public class funcao {
         return idfuncao;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }
     
 }
