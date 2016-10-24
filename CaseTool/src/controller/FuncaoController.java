@@ -18,74 +18,89 @@ import util.HibernateUtil;
  *
  * @author igor-vinicyos
  */
-public class FuncaoController implements IFuncaoController{
+public class FuncaoController implements IFuncaoController {
 
     private static FuncaoController instance;
-    
-    public static synchronized FuncaoController getInstance(){
-        if(instance == null){
+
+    public static synchronized FuncaoController getInstance() {
+        if (instance == null) {
             instance = new FuncaoController();
         }
         return instance;
     }
-    
+
     @Override
     public boolean inserir(String descricao) {
         try {
-            
-            funcao funcao  = new funcao(descricao);
+
+            funcao funcao = new funcao(descricao);
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(funcao);
             session.getTransaction().commit();
             session.close();
-            javax.swing.JOptionPane.showMessageDialog(null, "Função salva com sucesso! Id: "+funcao.getIdfuncao());
+            javax.swing.JOptionPane.showMessageDialog(null, "Função salva com sucesso! Id: " + funcao.getIdfuncao());
             return true;
-            
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     @Override
-    public void atualizar(int idfuncao, String descricao) {
+    public boolean atualizar(int idfuncao, String descricao) {
         try {
-            funcao funcao = this.retornaFuncaoById(idfuncao);
+            if(verificaFuncaoById(idfuncao)){
+              funcao funcao = this.retornaFuncaoById(idfuncao);
             funcao.setDescricao(descricao);
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(funcao);
             session.getTransaction().commit();
             session.close();
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+            return true;  
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     @Override
     public void deletar(int idfuncao) {
         try {
-            
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+            if (EquipeController.getInstance().verificaFuncaoEmUso(idfuncao)) {
+                funcao func = retornaFuncaoById(idfuncao);
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                session.delete(func);
+                session.getTransaction().commit();
+                session.close();
+                javax.swing.JOptionPane.showMessageDialog(null, "Excluído com êxito!");
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(null, "Erro, está função está em uso em projetos!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public List<funcao> retornaListaFuncoes() {
         List<funcao> funcoes = new ArrayList<funcao>();
-        
+
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             funcoes = session.createQuery("from funcao").list();
             session.close();
-       
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (!funcoes.isEmpty()) {
             return funcoes;
         }
@@ -100,20 +115,20 @@ public class FuncaoController implements IFuncaoController{
             session.getSessionFactory().openSession();
             funcoes = session.createQuery("from funcao where idfuncao = :idfuncao").setParameter("idfuncao", idfuncao).list();
             session.close();
-        
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (!funcoes.isEmpty()) {
             return true;
         }
-        return false; 
+        return false;
     }
 
     @Override
     public funcao retornaFuncaoById(int idfuncao) {
-       List<funcao> funcoes = this.retornaListaFuncoes();
+        List<funcao> funcoes = this.retornaListaFuncoes();
         try {
             if (this.verificaFuncaoById(idfuncao)) {
                 if (!funcoes.isEmpty()) {
@@ -126,11 +141,10 @@ public class FuncaoController implements IFuncaoController{
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique se o id de funcao: " + idfuncao + " existe!");
             }
-        }catch(Exception ex) {
-             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;        
-    } 
-    
-    
+        return null;
+    }
+
 }

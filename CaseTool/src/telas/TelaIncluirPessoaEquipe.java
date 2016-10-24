@@ -56,7 +56,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
                 telac.setVisible(true);
 
             } else {
-                this.dispose();
+                this.formWindowClosing(null);
             }
 
         } else {

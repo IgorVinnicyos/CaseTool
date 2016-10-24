@@ -20,7 +20,9 @@ public interface IEquipeController {
     List<equipe> retornaListaEquipes();
     boolean inserirRelPessoasEquipe(int idpessoa, int idfuncao, int idequipe);
     List<rel_pessoa_equipe> retornaListaDeRelPessoasEquipeByIdequipe(int idequipe);
+    List<rel_pessoa_equipe> retornaListaDeRelPessoasEquipeByIdfuncao(int idfuncao);
     rel_pessoa_equipe retornaRelPessoaEqpByIdpessoa(int idpessoa);
     boolean verificaPessoaOcupada(int idpessoa, int idequipe);
     boolean verificaEquipeByNome(String nome);
+    boolean verificaFuncaoEmUso(int idfuncao);
 }

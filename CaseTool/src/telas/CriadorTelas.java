@@ -20,6 +20,7 @@ abstract class CriadorTelas extends javax.swing.JFrame{
     public void retornaTelaAnterior(){
         if (frame != null) {
             frame.setVisible(true);
+            frame.initialize();
             frame = null;
             this.dispose();
         }
