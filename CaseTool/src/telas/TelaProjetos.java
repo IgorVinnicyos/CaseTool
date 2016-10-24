@@ -64,6 +64,11 @@ public class TelaProjetos extends CriadorTelas{
         });
 
         jButton2.setText("Gerenciar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jLabel1.setText("Projetos ");
@@ -101,9 +106,7 @@ public class TelaProjetos extends CriadorTelas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        TelaPrincipal.getInstance().setVisible(true);
-        this.dispose();
-        instance = null;
+        retornaTelaAnterior();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -116,23 +119,26 @@ public class TelaProjetos extends CriadorTelas{
             if (listae == null) {
                 int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Você não possui nenhuma equipe cadastrada, deseja fazer agora?", "Equipe", JOptionPane.YES_NO_OPTION);
                 if (cadastro == 0) {
-                    TelaCadastraEquipe telac = TelaCadastraEquipe.getInstance();
-                    telac.setInterceptor(this);
-                    telac.setVisible(true);
+                    TelaCadastraEquipe.getInstance().setInterceptor(this);
+                    TelaCadastraEquipe.getInstance().setVisible(true);
                     this.setVisible(false);
                 } else {
                     this.dispose();
                 }
 
             } else {
-                TelaNovoProjeto telan = TelaNovoProjeto.getInstance();
-                telan.setVisible(true);
-                this.dispose();
+                TelaNovoProjeto.getInstance().setInterceptor(this);
+                TelaNovoProjeto.getInstance().setVisible(true);
+                this.setVisible(false);
             }
         }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

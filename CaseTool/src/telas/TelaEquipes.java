@@ -102,22 +102,21 @@ public class TelaEquipes extends CriadorTelas{
         if (PessoaController.getInstance().returnPesLogin().getNivel_acesso() != 1 && PessoaController.getInstance().returnPesLogin().getNivel_acesso() != 2) {
             javax.swing.JOptionPane.showMessageDialog(null, "Erro, você não possui nível de acesso suficiente para esta operação!");
         }else{
-            TelaCadastraEquipe telac = TelaCadastraEquipe.getInstance();
-            telac.setVisible(true);
+            TelaCadastraEquipe.getInstance().setInterceptor(this);
+            TelaCadastraEquipe.getInstance().setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        TelaPrincipal.getInstance().setVisible(true);
-        this.instance = null;
+        retornaTelaAnterior();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        TelaGerenciarEquipes telag = TelaGerenciarEquipes.getInstance();
-        telag.setVisible(true);
+        TelaGerenciarEquipes.getInstance().setInterceptor(this);
+        TelaGerenciarEquipes.getInstance().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -193,11 +193,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (frame != null) {
-            frame.setVisible(true);
-            frame = null;
-            this.dispose();
-        }
+        retornaTelaAnterior();
         instance = null;
     }//GEN-LAST:event_formWindowClosing
 
