@@ -18,6 +18,21 @@ import java.util.logging.Logger;
  */
 public class NiveisController implements iNiveisController{
 
+    private static NiveisController instance;
+    
+    public static synchronized NiveisController getInstance(){
+        if(instance == null){
+            instance = new NiveisController();
+        }
+        return instance;
+    } 
+    
+    private NiveisController(){
+        
+    }
+    
+    
+    
     @Override
     public boolean cadastraNivel(String descricao) {
         try{
@@ -40,19 +55,19 @@ public class NiveisController implements iNiveisController{
 
     @Override
     public List<niveis_acesso> retornaNiveis() {
-       List<niveis_acesso> pessoas = new ArrayList<niveis_acesso>();
+       List<niveis_acesso> niveis = new ArrayList<niveis_acesso>();
         try {
               Session session = HibernateUtil.getSessionFactory().openSession();
               session.beginTransaction();
-              pessoas = session.createQuery("from niveis_acesso").list();
+              niveis = session.createQuery("from niveis_acesso").list();
               session.close();
              
         } catch (Exception ex) {
             Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-         if (!pessoas.isEmpty()) {
-                  return pessoas;
+         if (!niveis.isEmpty()) {
+                  return niveis;
               }
          return null;
     }

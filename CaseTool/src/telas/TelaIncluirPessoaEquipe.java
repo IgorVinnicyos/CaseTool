@@ -25,6 +25,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
      * Creates new form TelaIncluirPessoaEquipe
      */
     private List<funcao> listaf;
+    private List<pessoa> listap;
     private equipe eqp;
     private pessoa pes;
     private static TelaIncluirPessoaEquipe instance;
@@ -45,8 +46,11 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     @Override
     public void initialize() {
         jLabel6.setText(eqp.getNome_equipe());
+        jComboBox1.removeAllItems();
         jComboBox1.removeAll();
+        
         listaf = FuncaoController.getInstance().retornaListaFuncoes();
+        listap = PessoaController.getInstance().retornaListaPessoas();
         if (listaf == null) {
             int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Nenhuma função cadastrada, deseja fazer isso agora?", "Funções", JOptionPane.YES_NO_OPTION);
             if (cadastro == 0) {
@@ -56,7 +60,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
                 telac.setVisible(true);
 
             } else {
-                this.formWindowClosing(null);
+                this.dispose();
             }
 
         } else {
@@ -64,6 +68,23 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
                 jComboBox1.addItem(object);
             }
         }
+//           if (listap == null) {
+//            int cadastro = javax.swing.JOptionPane.showConfirmDialog(null, "Nenhuma Pessoa cadastrada, deseja fazer isso agora?", "Funções", JOptionPane.YES_NO_OPTION);
+//            if (cadastro == 0) {
+//                TelaCadastrarPessoa telacp = TelaCadastrarPessoa.getInstance();
+//                telacp.setInterceptor(this);
+//                this.setVisible(false);
+//                telacp.setVisible(true);
+//
+//            } else {
+//                this.dispose();
+//            }
+//
+//        } else {
+//            for (pessoa object : listap) {
+//                jComboBox2.addItem(object);
+//            }
+//        }
     }
 
     public void setEqp(equipe eqp) {
@@ -197,26 +218,15 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
         instance = null;
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-        if (jTextField1.getText() != null) {
-            int codigoPes = Integer.parseInt(jTextField1.getText());
-            pes = PessoaController.getInstance().retornaPessoaById(codigoPes);
-            jLabel4.setText(pes.getNome());
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(null, "Forneça Id da pessoa!");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         funcao func = (funcao) jComboBox1.getSelectedItem();
-        if (EquipeController.getInstance().verificaPessoaOcupada(pes.getIdpessoa(), eqp.getIdequipe())) {
-            if (jTextField1.getText() != null) {
+        if (EquipeController.getInstance().verificaPessoaOcupada(Integer.parseInt(jTextField1.getText()), eqp.getIdequipe())) {
+              if (jTextField1.getText() != null) {
                 if(EquipeController.getInstance().inserirRelPessoasEquipe(Integer.parseInt(jTextField1.getText()), func.getIdfuncao(), eqp.getIdequipe())){
                     this.formWindowClosing(null);
                 }
+          
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Forneça Id da pessoa!");
             }
@@ -233,8 +243,19 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        listaf = FuncaoController.getInstance().retornaListaFuncoes();
     }//GEN-LAST:event_formWindowActivated
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        if (jTextField1.getText() != null) {
+            int codigoPes = Integer.parseInt(jTextField1.getText());
+            pes = PessoaController.getInstance().retornaPessoaById(codigoPes);
+            jLabel4.setText(pes.getNome());
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Forneça Id da pessoa!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

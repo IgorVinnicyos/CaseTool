@@ -19,6 +19,10 @@ public class niveis_acesso {
     @GeneratedValue
     private int nivel;
     private String descricao;
+    
+    public niveis_acesso(){
+        
+    }
 
     public niveis_acesso(String descricao) {
         this.descricao = descricao;
@@ -35,6 +39,9 @@ public class niveis_acesso {
     public int getNivel() {
         return nivel;
     }
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }
     
 }

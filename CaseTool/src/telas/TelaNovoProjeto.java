@@ -184,6 +184,7 @@ public class TelaNovoProjeto extends CriadorTelas{
             equipe eqp = (equipe) jComboBox1.getSelectedItem();
             if(ProjetoController.getInstance().inserir(jTextField2.getText(), jDateChooser1.getDate(), eqp.getIdequipe(), jTextField1.getText())){
                 this.formWindowClosing(null);
+                this.dispose();
             }
 
         }

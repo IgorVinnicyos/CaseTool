@@ -123,7 +123,7 @@ public class TelaProjetos extends CriadorTelas{
                     TelaCadastraEquipe.getInstance().setVisible(true);
                     this.setVisible(false);
                 } else {
-                    this.formWindowClosing(null);
+                    this.dispose();
                 }
 
             } else {

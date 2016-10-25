@@ -112,6 +112,7 @@ public class TelaLogin extends CriadorTelas{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //System.out.println(String.valueOf(jPasswordField1.getPassword()));
         if (LoginController.getInstance().autenticar(jTextField1.getText(), jPasswordField1.getText())) {
             PessoaController.getInstance().setPesLogin(LoginController.getInstance().retornaIDPessoa());
             TelaPrincipal.getInstance().setVisible(true);

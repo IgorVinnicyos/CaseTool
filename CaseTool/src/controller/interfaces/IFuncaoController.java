@@ -15,7 +15,7 @@ import model.funcao;
 public interface IFuncaoController {
     
     boolean inserir(String descricao);
-    boolean atualizar(int idfuncao, String descricao);
+    void atualizar(int idfuncao, String descricao);
     void deletar(int idfuncao);
     List<funcao> retornaListaFuncoes();
     boolean verificaFuncaoById(int idfuncao);

@@ -60,5 +60,8 @@ public class pessoa {
         this.nivel_acesso = nivel_acesso;
     }
     
-    
+     @Override
+    public String toString(){
+        return this.getNome();
+    }
 }

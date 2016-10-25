@@ -6,6 +6,7 @@
 package telas;
 
 import controller.EquipeController;
+import controller.FuncaoController;
 import controller.PessoaController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,7 +47,7 @@ public class TelaGerenciarEquipes extends CriadorTelas{
                 telac.setVisible(true);
                 this.setVisible(false);
             } else {
-                this.formWindowClosing(null);
+                this.dispose();
             }
         } else {
             for (equipe object : listaeqp) {
@@ -135,11 +136,6 @@ public class TelaGerenciarEquipes extends CriadorTelas{
         });
 
         jButton3.setText("Excluir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jTextField1.setEditable(false);
 
@@ -214,7 +210,7 @@ public class TelaGerenciarEquipes extends CriadorTelas{
         }
         if (listarel != null) {
             for (rel_pessoa_equipe object : listarel) {
-                tablemodel.addRow(new Object[]{PessoaController.getInstance().retornaPessoaById(object.getIdpessoa()).getNome(), object.getIdpessoa(), object.getIdfuncao()});
+                tablemodel.addRow(new Object[]{PessoaController.getInstance().retornaPessoaById(object.getIdpessoa()).getNome(), object.getIdpessoa(), FuncaoController.getInstance().retornaFuncaoById(object.getIdfuncao()).getDescricao()});
             }
         }
 
@@ -241,10 +237,6 @@ public class TelaGerenciarEquipes extends CriadorTelas{
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

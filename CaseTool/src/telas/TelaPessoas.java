@@ -5,31 +5,23 @@
  */
 package telas;
 
-import controller.FuncaoController;
-import controller.LoginController;
-import controller.PessoaController;
-import javax.swing.JFrame;
-import model.funcao;
-
 /**
  *
- * @author matheus
+ * @author igor-vinicyos
  */
-public class TelaCadastraFuncao extends CriadorTelas{
+public class TelaPessoas extends CriadorTelas {
 
     /**
-     * Creates new form TelaCadastraFuncao
+     * Creates new form TelaPessoas
      */
-    private static TelaCadastraFuncao instance;
-
-    private TelaCadastraFuncao() {
+    private static TelaPessoas instance;
+    private TelaPessoas() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
-    public static synchronized TelaCadastraFuncao getInstance(){
-        if(instance == null){
-            instance = new TelaCadastraFuncao();
+    public static synchronized TelaPessoas getInstance(){
+        if (instance == null){
+            instance = new TelaPessoas();
         }
         return instance;
     }
@@ -43,29 +35,28 @@ public class TelaCadastraFuncao extends CriadorTelas{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        jLabel1.setText("Descrição:");
-
-        jButton1.setText("Gravar");
+        jButton1.setText("Cadastro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Nova função");
+        jButton2.setText("Gerenciar");
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel1.setText("Pessoas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,29 +65,25 @@ public class TelaCadastraFuncao extends CriadorTelas{
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jButton1))
+                        .addGap(128, 128, 128)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                        .addGap(153, 153, 153)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addComponent(jButton1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,28 +91,15 @@ public class TelaCadastraFuncao extends CriadorTelas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (frame != null) {
-            frame.setVisible(true);
-            frame.initialize();
-            frame = null;
-            this.dispose();
-        }
-        this.instance = null;
+        retornaTelaAnterior();
+        instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (jTextField1.getText() != null) {
-            if (PessoaController.getInstance().returnPesLogin().getNivel_acesso() == 1 || PessoaController.getInstance().returnPesLogin().getNivel_acesso() == 2) {
-                FuncaoController.getInstance().inserir(jTextField1.getText());
-                this.formWindowClosing(null);
-            }else{
-                javax.swing.JOptionPane.showMessageDialog(null, "Erro, você não possui nível de acesso suficiente para esta operação!");
-            }
-        }else{
-            javax.swing.JOptionPane.showMessageDialog(null, "Forneça uma descrição!");
-        }
-
+        TelaCadastrarPessoa.getInstance().setInterceptor(this);
+        this.setVisible(false);
+        TelaCadastrarPessoa.getInstance().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -145,29 +119,27 @@ public class TelaCadastraFuncao extends CriadorTelas{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraFuncao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraFuncao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraFuncao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastraFuncao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastraFuncao().setVisible(true);
+                new TelaPessoas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
 }
