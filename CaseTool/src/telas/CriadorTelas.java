@@ -9,6 +9,7 @@ package telas;
  *
  * @author matheus
  */
+//...
 abstract class CriadorTelas extends javax.swing.JFrame{
     protected CriadorTelas frame;
     public void initialize(){
