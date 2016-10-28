@@ -23,4 +23,6 @@ public interface IEquipeController {
     rel_pessoa_equipe retornaRelPessoaEqpByIdpessoa(int idpessoa);
     boolean verificaPessoaOcupada(int idpessoa, int idequipe);
     boolean verificaEquipeByNome(String nome);
+    boolean verificaPessoaExisteEmEQP(int idpessoa, int idequipe);
+    boolean verificaFuncao(int idfuncao, int idpessoa, int projeto);
 }
