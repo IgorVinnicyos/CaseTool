@@ -7,10 +7,12 @@ package telas;
 
 import controller.EquipeController;
 import controller.PessoaController;
+import controller.ProjetoController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.equipe;
+import model.projeto;
 
 /**
  *
@@ -138,6 +140,39 @@ public class TelaProjetos extends CriadorTelas{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        List<projeto> listProj= new ArrayList<projeto>();
+        listProj = ProjetoController.getInstance().retornaListaProjetos();
+        if(listProj != null){
+            if(PessoaController.getInstance().returnPesLogin().getNivel_acesso() != 1){
+                JOptionPane.showMessageDialog(null, "Erro, você não possui nível de acesso suficiente para esta operação!");
+            }else{
+                List<equipe> listEqp = new ArrayList<equipe>();
+                listEqp = EquipeController.getInstance().retornaListaEquipes();
+                if(listEqp == null){
+                    int cadastro = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma equipe cadastrada, deseja fazer agora?","Equipe" ,JOptionPane.YES_NO_OPTION);                                                  
+                    if(cadastro == 0){
+                        TelaCadastraEquipe.getInstance().setInterceptor(this);
+                        TelaCadastraEquipe.getInstance().setVisible(true);
+                        this.setVisible(false);
+                    }else{
+                        this.dispose();
+                    }
+                }else{
+                    TelaSelecionarProjeto.getInstance().setInterceptor(this);
+                    TelaSelecionarProjeto.getInstance().setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+        }else{
+           int cadastroProjeto = JOptionPane.showConfirmDialog(null, "Você não possui nenhum projeto cadastrado, deseja fazer isso agora?","Projeto",JOptionPane.YES_NO_OPTION);
+           if(cadastroProjeto == 0){
+               TelaNovoProjeto.getInstance().setInterceptor(this);
+               TelaNovoProjeto.getInstance().setVisible(true);
+               this.setVisible(false);
+           }else{
+               this.dispose();
+           }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

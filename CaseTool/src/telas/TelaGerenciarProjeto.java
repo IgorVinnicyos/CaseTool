@@ -5,6 +5,9 @@
  */
 package telas;
 
+import javax.swing.JOptionPane;
+import model.projeto;
+
 /**
  *
  * @author matheus
@@ -14,10 +17,14 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     /**
      * Creates new form TelaGerenciarProjeto
      */
+    private projeto Projeto;
+    
+    
     private static TelaGerenciarProjeto instance;
     private TelaGerenciarProjeto() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
     
     public static synchronized TelaGerenciarProjeto getInstance(){
@@ -27,6 +34,9 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         return instance;
     }
 
+    public void setProjeto(projeto Projeto){
+        this.Projeto = Projeto;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,31 +46,72 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+
+        jMenu1.setText("jMenu1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
 
-        pack();
+        getContentPane().add(jDesktopPane1);
+        jDesktopPane1.setBounds(0, 0, 720, 380);
+
+        jMenu5.setText("Requisitos");
+
+        jMenuItem1.setText("Cadastrar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem1);
+
+        jMenuItem2.setText("Alterar");
+        jMenu5.add(jMenuItem2);
+
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("Edit");
+        jMenuBar2.add(jMenu6);
+
+        setJMenuBar(jMenuBar2);
+
+        setBounds(0, 0, 711, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        this.instance = null;
+        retornaTelaAnterior();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+       TelaCadastrarRequisito TR = new TelaCadastrarRequisito();
+       TR.setVisible(true);
+       jDesktopPane1.add(TR);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,5 +150,12 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
