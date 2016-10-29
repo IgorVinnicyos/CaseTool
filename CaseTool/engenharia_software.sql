@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Tempo de geração: 28/10/2016 às 20:10
--- Versão do servidor: 10.1.16-MariaDB
--- Versão do PHP: 5.6.24
+-- Generation Time: 30-Out-2016 às 00:32
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 7.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `engenharia_software`
+-- Database: `engenharia_software`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `equipe`
+-- Estrutura da tabela `equipe`
 --
 
 CREATE TABLE `equipe` (
@@ -35,7 +35,7 @@ CREATE TABLE `equipe` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `funcao`
+-- Estrutura da tabela `funcao`
 --
 
 CREATE TABLE `funcao` (
@@ -46,7 +46,7 @@ CREATE TABLE `funcao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `log`
+-- Estrutura da tabela `log`
 --
 
 CREATE TABLE `log` (
@@ -61,7 +61,7 @@ CREATE TABLE `log` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `login`
+-- Estrutura da tabela `login`
 --
 
 CREATE TABLE `login` (
@@ -74,7 +74,7 @@ CREATE TABLE `login` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `niveis_acesso`
+-- Estrutura da tabela `niveis_acesso`
 --
 
 CREATE TABLE `niveis_acesso` (
@@ -83,7 +83,7 @@ CREATE TABLE `niveis_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `niveis_acesso`
+-- Extraindo dados da tabela `niveis_acesso`
 --
 
 INSERT INTO `niveis_acesso` (`nivel`, `descricao`) VALUES
@@ -93,7 +93,7 @@ INSERT INTO `niveis_acesso` (`nivel`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pessoa`
+-- Estrutura da tabela `pessoa`
 --
 
 CREATE TABLE `pessoa` (
@@ -106,7 +106,7 @@ CREATE TABLE `pessoa` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `projeto`
+-- Estrutura da tabela `projeto`
 --
 
 CREATE TABLE `projeto` (
@@ -124,7 +124,7 @@ CREATE TABLE `projeto` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `rastreamento_requisitos`
+-- Estrutura da tabela `rastreamento_requisitos`
 --
 
 CREATE TABLE `rastreamento_requisitos` (
@@ -137,7 +137,7 @@ CREATE TABLE `rastreamento_requisitos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `rel_pessoa_equipe`
+-- Estrutura da tabela `rel_pessoa_equipe`
 --
 
 CREATE TABLE `rel_pessoa_equipe` (
@@ -150,7 +150,7 @@ CREATE TABLE `rel_pessoa_equipe` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `rel_pessoa_requisito`
+-- Estrutura da tabela `rel_pessoa_requisito`
 --
 
 CREATE TABLE `rel_pessoa_requisito` (
@@ -167,13 +167,13 @@ CREATE TABLE `rel_pessoa_requisito` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `requisito`
+-- Estrutura da tabela `requisito`
 --
 
 CREATE TABLE `requisito` (
   `idrequisito` int(11) NOT NULL,
   `concluido` tinyint(1) DEFAULT '0',
-  `tempo_estimado` text,
+  `tempo_estimado` int(11) DEFAULT NULL,
   `descricao` text NOT NULL,
   `data_inicio` date DEFAULT NULL,
   `data_termino` date DEFAULT NULL,
@@ -183,23 +183,23 @@ CREATE TABLE `requisito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Índices de tabelas apagadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `equipe`
+-- Indexes for table `equipe`
 --
 ALTER TABLE `equipe`
   ADD PRIMARY KEY (`idequipe`);
 
 --
--- Índices de tabela `funcao`
+-- Indexes for table `funcao`
 --
 ALTER TABLE `funcao`
   ADD PRIMARY KEY (`idfuncao`);
 
 --
--- Índices de tabela `log`
+-- Indexes for table `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`idlog`),
@@ -208,7 +208,7 @@ ALTER TABLE `log`
   ADD KEY `fk_log_requisito1` (`idrequisito`);
 
 --
--- Índices de tabela `login`
+-- Indexes for table `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`idlogin`),
@@ -217,14 +217,14 @@ ALTER TABLE `login`
   ADD KEY `fk_login_pessoa1_idx` (`idpessoa`);
 
 --
--- Índices de tabela `niveis_acesso`
+-- Indexes for table `niveis_acesso`
 --
 ALTER TABLE `niveis_acesso`
   ADD PRIMARY KEY (`nivel`),
   ADD UNIQUE KEY `nivel` (`nivel`);
 
 --
--- Índices de tabela `pessoa`
+-- Indexes for table `pessoa`
 --
 ALTER TABLE `pessoa`
   ADD PRIMARY KEY (`idpessoa`),
@@ -232,7 +232,7 @@ ALTER TABLE `pessoa`
   ADD KEY `idpessoa` (`idpessoa`);
 
 --
--- Índices de tabela `projeto`
+-- Indexes for table `projeto`
 --
 ALTER TABLE `projeto`
   ADD PRIMARY KEY (`idprojeto`),
@@ -240,7 +240,7 @@ ALTER TABLE `projeto`
   ADD KEY `fk_projeto_equipe1_idx` (`idequipe`);
 
 --
--- Índices de tabela `rastreamento_requisitos`
+-- Indexes for table `rastreamento_requisitos`
 --
 ALTER TABLE `rastreamento_requisitos`
   ADD PRIMARY KEY (`idtupla`),
@@ -249,7 +249,7 @@ ALTER TABLE `rastreamento_requisitos`
   ADD KEY `id_dep_req` (`id_dep_req`);
 
 --
--- Índices de tabela `rel_pessoa_equipe`
+-- Indexes for table `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
   ADD PRIMARY KEY (`id_rel_pes_eqp`),
@@ -259,7 +259,7 @@ ALTER TABLE `rel_pessoa_equipe`
   ADD KEY `fk_rel_pessoa_equipe_funcao1_idx` (`idfuncao`);
 
 --
--- Índices de tabela `rel_pessoa_requisito`
+-- Indexes for table `rel_pessoa_requisito`
 --
 ALTER TABLE `rel_pessoa_requisito`
   ADD PRIMARY KEY (`id_rel_pes_req`),
@@ -268,102 +268,102 @@ ALTER TABLE `rel_pessoa_requisito`
   ADD KEY `fk_rel_pessoa_requisito_pessoa1_idx` (`idpessoa`);
 
 --
--- Índices de tabela `requisito`
+-- Indexes for table `requisito`
 --
 ALTER TABLE `requisito`
   ADD PRIMARY KEY (`idrequisito`),
   ADD KEY `fk_requisito_projeto1_idx` (`idprojeto`);
 
 --
--- AUTO_INCREMENT de tabelas apagadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `equipe`
+-- AUTO_INCREMENT for table `equipe`
 --
 ALTER TABLE `equipe`
-  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `funcao`
+-- AUTO_INCREMENT for table `funcao`
 --
 ALTER TABLE `funcao`
-  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de tabela `log`
+-- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
   MODIFY `idlog` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de tabela `login`
+-- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `niveis_acesso`
+-- AUTO_INCREMENT for table `niveis_acesso`
 --
 ALTER TABLE `niveis_acesso`
   MODIFY `nivel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de tabela `pessoa`
+-- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de tabela `projeto`
+-- AUTO_INCREMENT for table `projeto`
 --
 ALTER TABLE `projeto`
-  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `rastreamento_requisitos`
+-- AUTO_INCREMENT for table `rastreamento_requisitos`
 --
 ALTER TABLE `rastreamento_requisitos`
-  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT de tabela `rel_pessoa_equipe`
+-- AUTO_INCREMENT for table `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
-  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `rel_pessoa_requisito`
+-- AUTO_INCREMENT for table `rel_pessoa_requisito`
 --
 ALTER TABLE `rel_pessoa_requisito`
-  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
--- AUTO_INCREMENT de tabela `requisito`
+-- AUTO_INCREMENT for table `requisito`
 --
 ALTER TABLE `requisito`
-  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
--- Restrições para dumps de tabelas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `log`
+-- Limitadores para a tabela `log`
 --
 ALTER TABLE `log`
   ADD CONSTRAINT `fk_log_pessoa1` FOREIGN KEY (`idpessoa`) REFERENCES `pessoa` (`idpessoa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_log_requisito1` FOREIGN KEY (`idrequisito`) REFERENCES `requisito` (`idrequisito`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `login`
+-- Limitadores para a tabela `login`
 --
 ALTER TABLE `login`
   ADD CONSTRAINT `fk_login_pessoa1` FOREIGN KEY (`idpessoa`) REFERENCES `pessoa` (`idpessoa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `pessoa`
+-- Limitadores para a tabela `pessoa`
 --
 ALTER TABLE `pessoa`
   ADD CONSTRAINT `fk_nivel` FOREIGN KEY (`nivel_acesso`) REFERENCES `niveis_acesso` (`nivel`);
 
 --
--- Restrições para tabelas `projeto`
+-- Limitadores para a tabela `projeto`
 --
 ALTER TABLE `projeto`
   ADD CONSTRAINT `fk_projeto_equipe1` FOREIGN KEY (`idequipe`) REFERENCES `equipe` (`idequipe`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `rastreamento_requisitos`
+-- Limitadores para a tabela `rastreamento_requisitos`
 --
 ALTER TABLE `rastreamento_requisitos`
   ADD CONSTRAINT `rastreamento_requisitos_ibfk_1` FOREIGN KEY (`idprojeto`) REFERENCES `projeto` (`idprojeto`),
@@ -371,7 +371,7 @@ ALTER TABLE `rastreamento_requisitos`
   ADD CONSTRAINT `rastreamento_requisitos_ibfk_3` FOREIGN KEY (`id_dep_req`) REFERENCES `requisito` (`idrequisito`);
 
 --
--- Restrições para tabelas `rel_pessoa_equipe`
+-- Limitadores para a tabela `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
   ADD CONSTRAINT `fk_rel_pessoa_equipe_equipe1` FOREIGN KEY (`idequipe`) REFERENCES `equipe` (`idequipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -379,14 +379,14 @@ ALTER TABLE `rel_pessoa_equipe`
   ADD CONSTRAINT `fk_rel_pessoa_equipe_pessoa1` FOREIGN KEY (`idpessoa`) REFERENCES `pessoa` (`idpessoa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `rel_pessoa_requisito`
+-- Limitadores para a tabela `rel_pessoa_requisito`
 --
 ALTER TABLE `rel_pessoa_requisito`
   ADD CONSTRAINT `fk_rel_pessoa_requisito_pessoa1` FOREIGN KEY (`idpessoa`) REFERENCES `pessoa` (`idpessoa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_rel_pessoa_requisito_requisito` FOREIGN KEY (`idrequisito`) REFERENCES `requisito` (`idrequisito`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `requisito`
+-- Limitadores para a tabela `requisito`
 --
 ALTER TABLE `requisito`
   ADD CONSTRAINT `fk_requisito_projeto1` FOREIGN KEY (`idprojeto`) REFERENCES `projeto` (`idprojeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;

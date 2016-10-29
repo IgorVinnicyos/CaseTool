@@ -22,7 +22,7 @@ import util.HibernateUtil;
  * @author igor-vinicyos
  */
 public class RequisitoController implements IRequisitoController{
-    
+    private static requisito requisitoInserido;
     private static RequisitoController instance;
     
     public static synchronized RequisitoController getInstance(){
@@ -33,17 +33,22 @@ public class RequisitoController implements IRequisitoController{
     }
     
     @Override
-    public boolean inserir(String tempo_estimado, String descricao, int idprojeto) {
+    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, Date data_inicio, Date data_termino, String tipo_requisito, int cod_requisito,
+    int idpessoa, String desc_Atividade
+    ){
         try {
            if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
                
-                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto);
+                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto, data_inicio, data_termino, tipo_requisito, cod_requisito);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 session.save(requisito);
                 session.getTransaction().commit();
                 session.close();
+                this.InserirRelPessoaRequisito(requisito.getIdrequisito(),idpessoa,desc_Atividade);
+                this.requisitoInserido = requisito;
                 javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
+              
                 return true;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique ID de projeto!");
@@ -128,12 +133,12 @@ public class RequisitoController implements IRequisitoController{
     }
 
     @Override
-    public boolean InserirRelPessoaRequisito(int idrequisito, int idpessoa, String descricao_atividade, Date tempo, double custo) {
+    public boolean InserirRelPessoaRequisito(int idrequisito, int idpessoa, String descricao_atividade ) {
         try {
             
             if (this.verificaRequisitoById(idrequisito) && PessoaController.getInstance().verificaPessoaById(idpessoa)) {
              
-                rel_pessoa_requisito rel1 = new rel_pessoa_requisito(idrequisito, idpessoa, descricao_atividade, tempo, custo);
+                rel_pessoa_requisito rel1 = new rel_pessoa_requisito(idrequisito, idpessoa, descricao_atividade);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 session.save(rel1);
@@ -218,8 +223,14 @@ public class RequisitoController implements IRequisitoController{
         }
         return null;
     }
+
+    @Override
+    public requisito getReqInserido() {
+        return this.requisitoInserido;
+    }
     
 }
+
 
 /*
 try {

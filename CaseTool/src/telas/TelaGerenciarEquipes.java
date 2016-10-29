@@ -226,12 +226,13 @@ public class TelaGerenciarEquipes extends CriadorTelas{
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(eqp != null){
-           TelaIncluirPessoaEquipe telai = TelaIncluirPessoaEquipe.getInstance();
+            
+        TelaIncluirPessoaEquipe telai = TelaIncluirPessoaEquipe.getInstance();
         telai.setInterceptor(this);
         telai.setEqp((equipe) jComboBox2.getSelectedItem());
         telai.initialize();
         this.setVisible(false);
-//        telai.setVisible(true); 
+        telai.setVisible(true); 
         }else{
             javax.swing.JOptionPane.showMessageDialog(null, "Erro, selecione uma equipe!");
         }

@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.PessoaController;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class rel_pessoa_requisito {
+
     @Id
     @GeneratedValue
     private int id_rel_pes_req;
@@ -37,6 +39,14 @@ public class rel_pessoa_requisito {
         this.descricao_atividade = descricao_atividade;
         this.tempo = tempo;
         this.custo = custo;
+    
+    }
+    public rel_pessoa_requisito(int idrequisito, int idpessoa, String descricao_atividade) {
+        this.idrequisito = idrequisito;
+        this.idpessoa = idpessoa;
+        this.descricao_atividade = descricao_atividade;
+        
+       
     }
 
     public int getIdrequisito() {
@@ -98,6 +108,8 @@ public class rel_pessoa_requisito {
     public int getId_rel_pes_req() {
         return id_rel_pes_req;
     }
+
+    
     
     
     

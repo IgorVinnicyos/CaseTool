@@ -26,7 +26,7 @@ public class CaseTool {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-          
+       
         TelaLogin login = TelaLogin.getInstance();
         login.setVisible(true);
      

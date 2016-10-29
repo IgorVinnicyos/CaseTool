@@ -62,6 +62,6 @@ public class pessoa {
     
      @Override
     public String toString(){
-        return this.getNome();
+        return this.nome;
     }
 }

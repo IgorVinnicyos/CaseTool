@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 
 import controller.interfaces.IRastreamentoController;
+import javax.swing.JOptionPane;
 /**
  *
  * @author matheus
@@ -35,7 +36,7 @@ public class RastreamentoController implements IRastreamentoController {
     }
 
     @Override
-    public boolean gravarDependente(int idprojeto, int idrequisito, List<rastreamento_requisitos> listaRequisitos) {
+    public boolean gravarDependente(int idprojeto, int idrequisito, List<requisito> listaRequisitos) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         rastreamento_requisitos rast;
         try {
@@ -45,9 +46,9 @@ public class RastreamentoController implements IRastreamentoController {
                         javax.swing.JOptionPane.showMessageDialog(null, "Erro, espeficique os requisitos dos quais este depente!");
                     } else {
                         session.beginTransaction();
-                        for (rastreamento_requisitos atual : listaRequisitos) {
-                            rast = atual;
-                            session.save(atual);
+                        for (requisito atual : listaRequisitos) {
+                           rast = new rastreamento_requisitos(idprojeto, idrequisito, atual.getIdrequisito());
+                            session.save(rast);
                         }
                         session.getTransaction().commit();
                         session.close();

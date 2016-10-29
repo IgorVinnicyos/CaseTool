@@ -14,7 +14,7 @@ import model.requisito;
  * @author matheus
  */
 public interface IRastreamentoController {
-    boolean gravarDependente(int idprojeto, int idrequisito, List<rastreamento_requisitos> listaRequisitos);
+    boolean gravarDependente(int idprojeto, int idrequisito, List<requisito> listaRequisitos);
     List<requisito> retornarAnteriores (int idprojeto, int idrequisito);
     List<requisito> retornarPosteriores (int idprojeto, int id_dep_req);
     boolean apagarDependente(int idprojeto, int idrequisito, int id_req_dep);

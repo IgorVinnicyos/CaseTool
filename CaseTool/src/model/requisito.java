@@ -20,16 +20,22 @@ public class requisito {
     @GeneratedValue
     private int idrequisito;
     private boolean concluido;
-    private String tempo_estimado;
+    private int tempo_estimado;
     private String descricao;
     private Date data_inicio;
     private Date data_termino;
     private int idprojeto;
+    private String tipo_requisito;
+    private int cod_req;
 
-    public requisito(String tempo_estimado, String descricao, int idprojeto) {
+    public requisito(int tempo_estimado, String descricao, int idprojeto, Date data_inicio, Date data_termino, String tipo_requisito, int cod_req) {
         this.tempo_estimado = tempo_estimado;
         this.descricao = descricao;
         this.idprojeto = idprojeto;
+        this.data_inicio = data_inicio;
+        this.data_termino = data_termino;
+        this.tipo_requisito = tipo_requisito;
+        this.cod_req = cod_req;
     }
     
     private requisito(){
@@ -44,11 +50,11 @@ public class requisito {
         this.concluido = concluido;
     }
 
-    public String getTempo_estimado() {
+    public int getTempo_estimado() {
         return tempo_estimado;
     }
 
-    public void setTempo_estimado(String tempo_estimado) {
+    public void setTempo_estimado(int tempo_estimado) {
         this.tempo_estimado = tempo_estimado;
     }
 
@@ -82,6 +88,15 @@ public class requisito {
 
     public void setIdprojeto(int idprojeto) {
         this.idprojeto = idprojeto;
+    }
+
+    public int getIdrequisito() {
+        return idrequisito;
+    }
+
+    @Override
+    public String toString() {
+        return tipo_requisito+cod_req;
     }
     
     

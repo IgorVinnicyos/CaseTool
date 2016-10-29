@@ -5,8 +5,15 @@
  */
 package telas;
 
+import controller.EquipeController;
+import controller.LoginController;
+import controller.PessoaController;
+import controller.RastreamentoController;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.pessoa;
 import model.projeto;
+import model.rel_pessoa_equipe;
 
 /**
  *
@@ -36,6 +43,9 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
     public void setProjeto(projeto Projeto){
         this.Projeto = Projeto;
+    }
+    public projeto getProjeto(){
+        return this.Projeto;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,9 +118,29 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-       TelaCadastrarRequisito TR = new TelaCadastrarRequisito();
-       TR.setVisible(true);
-       jDesktopPane1.add(TR);
+        
+        pessoa logado = PessoaController.getInstance().returnPesLogin();
+        rel_pessoa_equipe rel_pes = EquipeController.getInstance().retornaRelPessoaEqpByIdpessoa(logado.getIdpessoa());
+        boolean permissao =  RastreamentoController.getInstance().verificaPermissao(Projeto.getIdprojeto(), rel_pes.getIdpessoa(), rel_pes.getIdfuncao());
+       
+        if(permissao){
+            List<rel_pessoa_equipe> listPess_Eqp = EquipeController.getInstance().retornaListaDeRelPessoasEquipeByIdequipe(Projeto.getIdequipe());
+            if(listPess_Eqp != null){
+                TelaCadastrarRequisito.getInstance().setInterceptor(this);
+                TelaCadastrarRequisito.getInstance().setVisible(true);
+                TelaCadastrarRequisito.getInstance().setPanel(jDesktopPane1);
+                jDesktopPane1.add(TelaCadastrarRequisito.getInstance());
+            }else{
+                int cadastrar = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma pessoa cadastrada na equipe, deseja fazer isso agora?","Menbros da Equipe",JOptionPane.YES_NO_OPTION);
+                if(cadastrar == 0){
+                    TelaIncluirPessoaEquipe.getInstance().setInterceptor(this);
+                    TelaIncluirPessoaEquipe.getInstance().setEqp(EquipeController.getInstance().retornaEquipeById(Projeto.getIdequipe()));
+                    TelaIncluirPessoaEquipe.getInstance().setVisible(true);
+                    TelaIncluirPessoaEquipe.getInstance().initialize();
+                    this.setVisible(false);
+                }
+           }
+       }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

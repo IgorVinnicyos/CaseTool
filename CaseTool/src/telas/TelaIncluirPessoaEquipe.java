@@ -31,9 +31,11 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     private static TelaIncluirPessoaEquipe instance;
 
     private TelaIncluirPessoaEquipe() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+       
+          initComponents();
+          this.setLocationRelativeTo(null); 
+          
+       
     }
     
     public static synchronized TelaIncluirPessoaEquipe getInstance(){
@@ -64,6 +66,8 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
             }
 
         } else {
+            System.out.println(listaf.size());
+                    
             for (funcao object : listaf) {
                 jComboBox1.addItem(object);
             }
@@ -90,7 +94,10 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     public void setEqp(equipe eqp) {
         this.eqp = eqp;
     }
-
+    public void setJlabelEquipe(String nome){
+        jLabel6.setText(nome);
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,6 +141,12 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 2, 15)); // NOI18N
         jLabel4.setText("Aguardando ID");
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +181,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,6 +270,10 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,7 +312,7 @@ public class TelaIncluirPessoaEquipe extends CriadorTelas {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<Object> jComboBox1;
+    private javax.swing.JComboBox<funcao> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

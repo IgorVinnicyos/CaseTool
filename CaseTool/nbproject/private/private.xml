@@ -3,15 +3,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/CriadorTelas.java</file>
-            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/RastreamentoController.java</file>
-            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaNovoProjeto.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/pessoa.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/funcao.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaEquipes.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaRelacionarRequisito.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/login.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/rel_pessoa_requisito.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/requisito.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/casetool/CaseTool.java</file>
             <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaCadastrarRequisito.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaCadastraFuncao.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/rel_pessoa_equipe.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/rastreamento_requisitos.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/CriadorTelas.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/EquipeController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/RastreamentoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/interfaces/IRequisitoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaNovoProjeto.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/ProjetoController.java</file>
             <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/RequisitoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/CriadorInternalFrame.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/equipe.java</file>
             <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaGerenciarProjeto.java</file>
-            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaProjetos.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaIncluirPessoaEquipe.java</file>
             <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaSelecionarProjeto.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/controller/interfaces/IRastreamentoController.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaGerenciarEquipes.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaPessoas.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaCadastrarPessoa.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaProjetos.java</file>
             <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/model/projeto.java</file>
+            <file>file:/home/igor-vinicyos/Documentos/NetBeans%20projetos/engenharia%20de%20software/CaseTool/CaseTool/src/telas/TelaCadastraEquipe.java</file>
         </group>
     </open-files>
 </project-private>

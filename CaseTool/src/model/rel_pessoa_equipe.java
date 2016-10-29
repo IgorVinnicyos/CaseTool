@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.PessoaController;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -54,6 +55,13 @@ public class rel_pessoa_equipe {
 
     public void setIdfuncao(int idfuncao) {
         this.idfuncao = idfuncao;
+    }
+
+    @Override
+    public String toString() {
+        pessoa pess = PessoaController.getInstance().retornaPessoaById(idpessoa);
+        String nome = pess.getNome();
+        return nome;
     }
     
     
