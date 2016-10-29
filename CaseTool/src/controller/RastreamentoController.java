@@ -14,11 +14,12 @@ import model.requisito;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
+import controller.interfaces.IRastreamentoController;
 /**
  *
  * @author matheus
  */
-public class RastreamentoController implements controller.interfaces.IRastreamentoController {
+public class RastreamentoController implements IRastreamentoController {
 
     private static RastreamentoController instance;
 
