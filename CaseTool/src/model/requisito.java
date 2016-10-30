@@ -94,9 +94,26 @@ public class requisito {
         return idrequisito;
     }
 
+    public int getCod_req() {
+        return cod_req;
+    }
+
+    public String getTipo_requisito() {
+        return tipo_requisito;
+    }
+    
+    public String getCodigoFormatado(){
+        String cod_formatado = "";
+        if(this.cod_req < 10){
+            cod_formatado = this.tipo_requisito+" 00"+cod_req;
+        }else if(this.cod_req >=10 && this.cod_req < 100){
+            cod_formatado = this.tipo_requisito+" 0"+cod_req;
+        }
+        return cod_formatado;
+    }
     @Override
     public String toString() {
-        return tipo_requisito+cod_req;
+        return getCodigoFormatado(); 
     }
     
     

@@ -7,6 +7,9 @@ package telas;
 
 import controller.RastreamentoController;
 import controller.RequisitoController;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -21,7 +24,7 @@ import model.requisito;
  * @author igor-vinicyos
  */
 public class TelaRelacionarRequisito extends CriadorInternalFrame {
-    private DefaultListModel<requisito> JlistRequisitos   = new DefaultListModel<requisito>();
+    private DefaultListModel<requisito> JModelListRequisitos   = new DefaultListModel<requisito>();
     private int index = 0;
     private requisito Requisito;
     private projeto Projeto ;
@@ -45,19 +48,40 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
 
     @Override
     public void initialize() {
+       
        List<requisito> listReq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
        if(listReq != null){
            for (requisito object : listReq) {
-               jComboBox1.addItem(object);
+               if(object.getIdrequisito() != Requisito.getIdrequisito()){
+                  jComboBox1.addItem(object);
+               }
            }
        }
-       
+      adicionarEventoClick();
     }
     public void setProjeto(projeto proj){
         this.Projeto = proj;
     }
     public void setRequisito(requisito req){
         this.Requisito = req;
+    }
+    
+    public void adicionarEventoClick(){
+        MouseListener mouseListener = new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount() == 2){
+                    int index = jListReq.locationToIndex(e.getPoint());
+                    requisito req = JModelListRequisitos.getElementAt(index);
+                    int remover = JOptionPane.showConfirmDialog(null, "Deseja remover o requisito "+req+" da lista?","Remover requisito", JOptionPane.YES_NO_OPTION);
+                    if(remover == 0){
+                        jComboBox1.addItem(req);
+                        listaRequisitos.remove(req);
+                        JModelListRequisitos.remove(index);
+                    }
+                }
+            }
+        };
+        jListReq.addMouseListener(mouseListener);
     }
     
 
@@ -134,6 +158,11 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
         });
 
         jListReq.setBorder(null);
+        jListReq.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListReqMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jListReq);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,11 +193,11 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(133, 133, 133))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(234, 234, 234))))
+                        .addGap(234, 234, 234))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,16 +240,19 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
        requisito req =(requisito) jComboBox1.getSelectedItem();
         if(req != null){
             Decricao.setText(req.getDescricao());
+        }else{
+            Decricao.setText("");
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, Requisito.getIdrequisito());
+       
         requisito req = (requisito) jComboBox1.getSelectedItem(); 
+        jComboBox1.removeItem(req);
         listaRequisitos.add(req);
-        JlistRequisitos.add(this.index, req);
-        jListReq.setModel(JlistRequisitos);
+        JModelListRequisitos.addElement(req);
+        jListReq.setModel(JModelListRequisitos);
         
        
         this.index++;
@@ -239,6 +271,11 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
                 this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jListReqMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListReqMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jListReqMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

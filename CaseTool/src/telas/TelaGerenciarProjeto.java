@@ -9,11 +9,14 @@ import controller.EquipeController;
 import controller.LoginController;
 import controller.PessoaController;
 import controller.RastreamentoController;
+import controller.RequisitoController;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.pessoa;
 import model.projeto;
 import model.rel_pessoa_equipe;
+import model.requisito;
 
 /**
  *
@@ -62,6 +65,8 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
@@ -101,9 +106,25 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         jMenuItem2.setText("Alterar");
         jMenu5.add(jMenuItem2);
 
+        jMenuItem3.setText("Rastrear");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        jMenuItem4.setText("Relacionar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
         jMenuBar2.add(jMenu5);
 
-        jMenu6.setText("Edit");
+        jMenu6.setText("Equipe");
         jMenuBar2.add(jMenu6);
 
         setJMenuBar(jMenuBar2);
@@ -142,6 +163,45 @@ public class TelaGerenciarProjeto extends CriadorTelas{
            }
        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        
+        List<requisito> listRq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
+        if(listRq != null){
+            TelaRastrearRequisito.getInstance().setInterceptor(this);
+            TelaRastrearRequisito.getInstance().setVisible(true);
+            jDesktopPane1.add(TelaRastrearRequisito.getInstance());
+        }else{
+            int cadastrar = JOptionPane.showConfirmDialog(null, "Nenhum requisito cadastrado para este projeto, deseja fazer agora?","Cadastrar requisito",JOptionPane.YES_NO_OPTION);
+            if(cadastrar == 0){
+                TelaCadastrarRequisito.getInstance().setInterceptor(this);
+                TelaCadastrarRequisito.getInstance().setVisible(true);
+                TelaCadastrarRequisito.getInstance().setPanel(jDesktopPane1);
+                jDesktopPane1.add(TelaCadastrarRequisito.getInstance()); 
+            }
+        }
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        String[] list = {"RF", "RFN", "RP","RO","RE"};
+        JComboBox comboTipo = new JComboBox(list);
+        comboTipo.setVisible(true);
+        String cod = JOptionPane.showInputDialog(null,comboTipo);
+        requisito req =  RequisitoController.getInstance().retornaRequisitoByCod((String)comboTipo.getSelectedItem(), Integer.parseInt(cod));
+        if(req != null){
+            jDesktopPane1.removeAll();
+            TelaRelacionarRequisito.getInstance().setInterceptor(TelaGerenciarProjeto.getInstance());
+            TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
+            TelaRelacionarRequisito.getInstance().setRequisito(req);
+            TelaRelacionarRequisito.getInstance().initialize();
+            TelaRelacionarRequisito.getInstance().setVisible(true);
+            jDesktopPane1.add(TelaRelacionarRequisito.getInstance());
+        }
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,5 +247,7 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

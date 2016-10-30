@@ -26,4 +26,7 @@ public interface IRequisitoController {
     List<rel_pessoa_requisito> retornaListPesReqByIDProj(int idprojeto);
     rel_pessoa_requisito retornaRelPesReqByIdRel(int id_rel_pes_req);
     requisito getReqInserido();
+    requisito retornaRequisitoByCod(String tipo, int cod);
+    boolean   verificaRequisitoByCod(String tipo_requisito, int cod_req);
+    List<requisito> retornaListRequisitoByTipo(String tipo_requisito, int idprojeto);
 }

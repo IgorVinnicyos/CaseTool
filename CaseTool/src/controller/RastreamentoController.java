@@ -47,6 +47,7 @@ public class RastreamentoController implements IRastreamentoController {
                     } else {
                         session.beginTransaction();
                         for (requisito atual : listaRequisitos) {
+                            
                            rast = new rastreamento_requisitos(idprojeto, idrequisito, atual.getIdrequisito());
                             session.save(rast);
                         }
@@ -70,7 +71,20 @@ public class RastreamentoController implements IRastreamentoController {
 
     @Override
     public boolean apagarDependente(int idprojeto, int idrequisito, int id_req_dep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+       
+            rastreamento_requisitos rast = this.retornaRastReq(idprojeto, idrequisito, id_req_dep);
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(rast);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        
+        }catch(Exception ex){
+          Logger.getLogger(RastreamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -90,13 +104,13 @@ public class RastreamentoController implements IRastreamentoController {
     }
 
     @Override
-    public List<requisito> retornarAnteriores(int idprojeto, int idrequisito) {
+    public List<requisito> retornarPosteriores(int idprojeto, int idrequisito) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             List<rastreamento_requisitos> listarast = new ArrayList<rastreamento_requisitos>();
             List<requisito> listareq = new ArrayList<requisito>();
             session.beginTransaction();
-            listarast = session.createQuery("from rastreamento_requisitos where idprojeto = :idprojeto and idrequisito = :idrequisito").setParameter("idprojeto", idprojeto).setParameter("idrequisito", idrequisito).list();
+            listarast = session.createQuery("from rastreamento_requisitos where idprojeto = :idprojeto AND idrequisito = :idrequisito").setParameter("idprojeto", idprojeto).setParameter("idrequisito", idrequisito).list();
             if(listarast != null || !listarast.isEmpty()){
                 for (rastreamento_requisitos object : listarast) {
                     listareq.add(RequisitoController.getInstance().retornaRequisitoById(object.getId_dep_req()));
@@ -104,13 +118,13 @@ public class RastreamentoController implements IRastreamentoController {
                 return listareq;
             }
         } catch (Exception ex) {
-            Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RastreamentoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public List<requisito> retornarPosteriores(int idprojeto, int id_dep_req) {
+    public List<requisito> retornarAnteriores(int idprojeto, int id_dep_req) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             List<rastreamento_requisitos> listarast = new ArrayList<rastreamento_requisitos>();
@@ -127,6 +141,33 @@ public class RastreamentoController implements IRastreamentoController {
             Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public rastreamento_requisitos retornaRastReq(int idprojeto, int idrequisito, int idDepReq) {
+        rastreamento_requisitos rast ;
+      try{
+          boolean existeReq = RequisitoController.getInstance().verificaRequisitoById(idrequisito);
+          boolean existeDep = RequisitoController.getInstance().verificaRequisitoById(idDepReq);
+          if(existeDep && existeDep){
+               
+            List<rastreamento_requisitos> lista;
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            lista = session.createQuery("from rastreamento_requisitos where idprojeto = :idprojeto and idrequisito = :idrequisito and 	id_dep_req = :id_dep_req").setParameter("idprojeto", idprojeto)
+            .setParameter("idrequisito",idrequisito).setParameter("id_dep_req", idDepReq).list();
+            session.close();
+            if (!lista.isEmpty()) {
+                return lista.get(0);
+            } 
+                 
+           }else{
+              JOptionPane.showMessageDialog(null, "Verifique o id dos requisitos");
+           }
+      }catch(Exception ex){
+         Logger.getLogger(PessoaController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return null;
     }
 
 }

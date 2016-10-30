@@ -282,12 +282,12 @@ ALTER TABLE `requisito`
 -- AUTO_INCREMENT for table `equipe`
 --
 ALTER TABLE `equipe`
-  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `funcao`
 --
 ALTER TABLE `funcao`
-  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `log`
 --
@@ -297,7 +297,7 @@ ALTER TABLE `log`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `niveis_acesso`
 --
@@ -307,32 +307,32 @@ ALTER TABLE `niveis_acesso`
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `projeto`
 --
 ALTER TABLE `projeto`
-  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rastreamento_requisitos`
 --
 ALTER TABLE `rastreamento_requisitos`
-  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
-  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rel_pessoa_requisito`
 --
 ALTER TABLE `rel_pessoa_requisito`
-  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `requisito`
 --
 ALTER TABLE `requisito`
-  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

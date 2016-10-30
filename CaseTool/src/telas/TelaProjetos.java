@@ -156,8 +156,6 @@ public class TelaProjetos extends CriadorTelas{
                         TelaCadastraEquipe.getInstance().setInterceptor(this);
                         TelaCadastraEquipe.getInstance().setVisible(true);
                         this.setVisible(false);
-                    }else{
-                        this.dispose();
                     }
                 }else{
                     TelaSelecionarProjeto.getInstance().setInterceptor(this);
@@ -171,8 +169,6 @@ public class TelaProjetos extends CriadorTelas{
                TelaNovoProjeto.getInstance().setInterceptor(this);
                TelaNovoProjeto.getInstance().setVisible(true);
                this.setVisible(false);
-           }else{
-               this.dispose();
            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed

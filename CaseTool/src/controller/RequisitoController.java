@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.log;
 import model.rel_pessoa_requisito;
 import model.requisito;
@@ -93,7 +94,7 @@ public class RequisitoController implements IRequisitoController{
             if (this.verificaRequisitoById(idrequisito)) {
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
-                requisitos = session.createQuery("from requisito where idrequisito = :idrequisito").list();
+                requisitos = session.createQuery("from requisito where idrequisito = :idrequisito").setParameter("idrequisito", idrequisito).list();
                 session.close();
                 if (!requisitos.isEmpty()) {
                     requisito = requisitos.get(0);
@@ -228,10 +229,69 @@ public class RequisitoController implements IRequisitoController{
     public requisito getReqInserido() {
         return this.requisitoInserido;
     }
+
+    @Override
+    public requisito retornaRequisitoByCod(String tipo_requisito, int cod_req) {
+      List<requisito> requisitos = new ArrayList<requisito>();
+        try {
+                if(verificaRequisitoByCod(tipo_requisito, cod_req)){
+                    requisito requisito;
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    session.beginTransaction();
+                    requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
+                    session.close();
+                    if (!requisitos.isEmpty()) {
+                        requisito = requisitos.get(0);
+                        return requisito;
+                    }
+                       
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erro, requisito não encontrado verifique o tipo e o código!");
+                }
+        } catch (Exception ex) {
+            Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return null;
+    }
+
+    @Override
+    public boolean verificaRequisitoByCod(String tipo_requisito, int cod_req) {
+        List<requisito> requisitos = new ArrayList<requisito>();
+        try {
+            
+            requisito requisito;
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
+                session.close();
+                if (!requisitos.isEmpty()) {
+                    return true;
+                }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return false;
+    }
+
+    @Override
+    public List<requisito> retornaListRequisitoByTipo(String tipo_requisito, int idprojeto) {
+        List<requisito> requisitos = new ArrayList<requisito>();
+        try {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                requisitos = session.createQuery("from requisito where tipo_requisito =:tipo_requisito AND idprojeto =:idprojeto").setParameter("tipo_requisito", tipo_requisito).setParameter("idprojeto", idprojeto).list();
+                session.close();
+                if (!requisitos.isEmpty()) {
+                    return requisitos;
+                }             
+        } catch (Exception ex) {
+            Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return null;
+    }
     
 }
-
-
 /*
 try {
            

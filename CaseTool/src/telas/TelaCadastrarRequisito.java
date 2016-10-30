@@ -16,6 +16,7 @@ import model.projeto;
 import model.pessoa;
 import model.rel_pessoa_equipe;
 import javax.swing.JDesktopPane;
+import model.requisito;
 /**
  *
  * @author igor-vinicyos
@@ -250,6 +251,7 @@ public class TelaCadastrarRequisito extends CriadorInternalFrame {
         }else if(jTextPaneAtividade.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Erro, escreva uma descrição da atividade que a pessoa realizará!");
         }
+        
         String Descricao = jTextPane1Desc.getText();
         String Atividade = jTextPaneAtividade.getText();
         int tempoEstimado = Integer.parseInt(jTextField1TempoEstimado.getText());
@@ -258,17 +260,27 @@ public class TelaCadastrarRequisito extends CriadorInternalFrame {
         Date termino = jDateChooserTermino.getDate();
         String tipoRequisito = (String)jComboBox1.getSelectedItem();
         rel_pessoa_equipe rel_pes = (rel_pessoa_equipe)jComboBox2Pessoa.getSelectedItem();
+       
         int idPes = rel_pes.getIdpessoa();
-        boolean insert = RequisitoController.getInstance().inserir(tempoEstimado,Descricao,Projeto.getIdprojeto(),inicio,termino,tipoRequisito,codigo,idPes,Atividade);
-        if(insert){
-            TelaRelacionarRequisito.getInstance().setInterceptor(TelaGerenciarProjeto.getInstance());
-            TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
-            TelaRelacionarRequisito.getInstance().setRequisito(RequisitoController.getInstance().getReqInserido());
-            TelaRelacionarRequisito.getInstance().initialize();
-            TelaRelacionarRequisito.getInstance().setVisible(true);
-            panel.add(TelaRelacionarRequisito.getInstance());
-            this.formInternalFrameClosing(null);
-            this.dispose();
+
+        if(!RequisitoController.getInstance().verificaRequisitoByCod(tipoRequisito, codigo)){
+           
+            boolean insert = RequisitoController.getInstance().inserir(tempoEstimado,Descricao,Projeto.getIdprojeto(),inicio,termino,tipoRequisito,codigo,idPes,Atividade);
+            List<requisito> listR = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
+            if(insert){
+                    if(listR.size() > 1){
+                        TelaRelacionarRequisito.getInstance().setInterceptor(TelaGerenciarProjeto.getInstance());
+                        TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
+                        TelaRelacionarRequisito.getInstance().setRequisito(RequisitoController.getInstance().getReqInserido());
+                        TelaRelacionarRequisito.getInstance().initialize();
+                        TelaRelacionarRequisito.getInstance().setVisible(true);
+                        panel.add(TelaRelacionarRequisito.getInstance());
+                    }
+                    this.formInternalFrameClosing(null);
+                    this.dispose();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Erro, Já existe um requisito cadastrado com esse código: "+tipoRequisito+codigo);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
