@@ -72,6 +72,7 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -79,19 +80,21 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         });
         getContentPane().setLayout(null);
 
+        jDesktopPane1.setBackground(new java.awt.Color(89, 115, 212));
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
 
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 0, 720, 380);
+        jDesktopPane1.setBounds(0, 0, 780, 530);
 
         jMenu5.setText("Requisitos");
 
@@ -129,12 +132,13 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
         setJMenuBar(jMenuBar2);
 
-        setBounds(0, 0, 711, 430);
+        setBounds(0, 0, 793, 588);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         retornaTelaAnterior();
+        instance = null;
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -142,7 +146,7 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         
         pessoa logado = PessoaController.getInstance().returnPesLogin();
         rel_pessoa_equipe rel_pes = EquipeController.getInstance().retornaRelPessoaEqpByIdpessoa(logado.getIdpessoa());
-        boolean permissao =  RastreamentoController.getInstance().verificaPermissao(Projeto.getIdprojeto(), rel_pes.getIdpessoa(), rel_pes.getIdfuncao());
+        boolean permissao =  RastreamentoController.getInstance().verificaPermissao(Projeto.getIdprojeto(), logado.getIdpessoa(), rel_pes.getIdfuncao());
        
         if(permissao){
             List<rel_pessoa_equipe> listPess_Eqp = EquipeController.getInstance().retornaListaDeRelPessoasEquipeByIdequipe(Projeto.getIdequipe());
@@ -152,7 +156,7 @@ public class TelaGerenciarProjeto extends CriadorTelas{
                 TelaCadastrarRequisito.getInstance().setPanel(jDesktopPane1);
                 jDesktopPane1.add(TelaCadastrarRequisito.getInstance());
             }else{
-                int cadastrar = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma pessoa cadastrada na equipe, deseja fazer isso agora?","Menbros da Equipe",JOptionPane.YES_NO_OPTION);
+                int cadastrar = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma pessoa cadastrada na equipe, deseja fazer isso agora?","Membros da Equipe",JOptionPane.YES_NO_OPTION);
                 if(cadastrar == 0){
                     TelaIncluirPessoaEquipe.getInstance().setInterceptor(this);
                     TelaIncluirPessoaEquipe.getInstance().setEqp(EquipeController.getInstance().retornaEquipeById(Projeto.getIdequipe()));
@@ -186,21 +190,15 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        String[] list = {"RF", "RFN", "RP","RO","RE"};
-        JComboBox comboTipo = new JComboBox(list);
-        comboTipo.setVisible(true);
-        String cod = JOptionPane.showInputDialog(null,comboTipo);
-        requisito req =  RequisitoController.getInstance().retornaRequisitoByCod((String)comboTipo.getSelectedItem(), Integer.parseInt(cod));
-        if(req != null){
-            jDesktopPane1.removeAll();
-            TelaRelacionarRequisito.getInstance().setInterceptor(TelaGerenciarProjeto.getInstance());
-            TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
-            TelaRelacionarRequisito.getInstance().setRequisito(req);
-            TelaRelacionarRequisito.getInstance().initialize();
-            TelaRelacionarRequisito.getInstance().setVisible(true);
-            jDesktopPane1.add(TelaRelacionarRequisito.getInstance());
-        }
+            
         
+
+        TelaSelecionarRequisito.getInstance().setInterceptor(this);
+        TelaSelecionarRequisito.getInstance().setProjeto(Projeto);
+        TelaSelecionarRequisito.getInstance().setPanel(jDesktopPane1);
+        TelaSelecionarRequisito.getInstance().initialize();
+        TelaSelecionarRequisito.getInstance().setVisible(true);
+        jDesktopPane1.add(TelaSelecionarRequisito.getInstance());
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**

@@ -54,7 +54,7 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
             }
             jList1.setModel(jListModelRequisito);
         }
-//        adicionarEventoClick();
+        adicionarEventoClick();
     }
 
     public void setPanel(JDesktopPane panel) {
@@ -109,16 +109,6 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
         jLabel1.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         jLabel1.setText("Selecionar Requisito");
 
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
-            }
-        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,26 +149,10 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
         filtrarListRequisito(tipo_req);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        // TODO add your handling code here
-    }//GEN-LAST:event_jList1MouseClicked
-
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         instance = null;
     }//GEN-LAST:event_formInternalFrameClosing
-
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        // TODO add your handling code here:
-        panel.remove(this);
-        TelaRelacionarRequisito.getInstance().setInterceptor(TelaGerenciarProjeto.getInstance());
-        TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
-        TelaRelacionarRequisito.getInstance().setRequisito(jList1.getSelectedValue());
-        TelaRelacionarRequisito.getInstance().initialize();
-        TelaRelacionarRequisito.getInstance().setVisible(true);
-        panel.add(TelaRelacionarRequisito.getInstance());
-        formInternalFrameClosing(null);
-    }//GEN-LAST:event_jList1ValueChanged
     public void adicionarEventoClick() {
         MouseListener mouseListener = new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -191,7 +165,9 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
                     TelaRelacionarRequisito.getInstance().setRequisito(req);
                     TelaRelacionarRequisito.getInstance().initialize();
                     TelaRelacionarRequisito.getInstance().setVisible(true);
-                    formInternalFrameClosing(null);
+                    panel.remove(instance);
+                    panel.add(TelaRelacionarRequisito.getInstance());
+                    instance.formInternalFrameClosing(null);
                 }
             }
         };

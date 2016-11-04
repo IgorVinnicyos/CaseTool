@@ -270,7 +270,7 @@ public class EquipeController implements IEquipeController {
             if (PessoaController.getInstance().verificaPessoaById(idpessoa)) {
                 listarel = retornaListaDeRelPessoasEquipeByIdequipe(idequipe);
                 for (rel_pessoa_equipe object : listarel) {
-                    if (object.getIdpessoa() == idequipe) {
+                    if (object.getIdpessoa() == idpessoa) {
                         return true;
                     }
                 }

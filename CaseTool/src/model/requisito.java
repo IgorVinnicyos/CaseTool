@@ -28,7 +28,7 @@ public class requisito {
     private String tipo_requisito;
     private int cod_req;
 
-    public requisito(int tempo_estimado, String descricao, int idprojeto, Date data_inicio, Date data_termino, String tipo_requisito, int cod_req) {
+    public requisito(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito) {
         this.tempo_estimado = tempo_estimado;
         this.descricao = descricao;
         this.idprojeto = idprojeto;
@@ -41,6 +41,12 @@ public class requisito {
     private requisito(){
         
     }
+
+    public void setCod_req(int cod_req) {
+        this.cod_req = cod_req;
+    }
+    
+    
 
     public boolean isConcluido() {
         return concluido;

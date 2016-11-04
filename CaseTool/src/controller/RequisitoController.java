@@ -34,27 +34,32 @@ public class RequisitoController implements IRequisitoController{
     }
     
     @Override
-    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, Date data_inicio, Date data_termino, String tipo_requisito, int cod_requisito,
-    int idpessoa, String desc_Atividade
-    ){
+    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito,int idpessoa, String desc_Atividade){
+        
+        
         try {
-           if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
-               
-                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto, data_inicio, data_termino, tipo_requisito, cod_requisito);
+            if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
+                List<requisito> req;
+                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto, tipo_requisito);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
+                req = session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = :tipo_requisito order by cod_req asc").setParameter("idprojeto", idprojeto).setParameter("tipo_requisito", tipo_requisito).list();
+                if(req != null && !req.isEmpty()){
+                    requisito.setCod_req(req.get(req.size()-1).getCod_req() + 1);
+                }else{
+                    requisito.setCod_req(1);
+                }
                 session.save(requisito);
                 session.getTransaction().commit();
                 session.close();
-                this.InserirRelPessoaRequisito(requisito.getIdrequisito(),idpessoa,desc_Atividade);
+                this.InserirRelPessoaRequisito(requisito.getIdrequisito(), idpessoa, desc_Atividade);
                 this.requisitoInserido = requisito;
-                javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso!");
-              
+                javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso! Id: "+requisito.getCodigoFormatado());
                 return true;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique ID de projeto!");
             }
-                     
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,7 +123,13 @@ public class RequisitoController implements IRequisitoController{
           if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
-                requisitos = session.createQuery("from requisito where idprojeto = :idprojeto").setParameter("idprojeto", idprojeto).list();
+                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto order by tipo_requisito asc, cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RNF' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RP' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RO' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RE' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RU' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
+//                requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = 'RS' order by cod_req asc").setParameter("idprojeto", idprojeto).list());
                 session.close();
                 if (!requisitos.isEmpty()) {
                     return requisitos;
@@ -194,7 +205,7 @@ public class RequisitoController implements IRequisitoController{
                 session.beginTransaction();
                 rel1 = session.createQuery("from requisito where idprojeto = :idprojeto").setParameter("idprojeto", idprojeto).list();
                 session.close();
-                if (!rel1.isEmpty()) {
+                if (!rel1.isEmpty() && rel1 != null) {
                     return rel1;
                 }
             } else {

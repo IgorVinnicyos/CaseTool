@@ -16,7 +16,7 @@ import model.requisito;
  * @author igor-vinicyos
  */
 public interface IRequisitoController {
-    boolean inserir(int tempo_estimado, String descricao, int idprojeto, Date data_inicio, Date data_termino, String tipo_requisito, int cod_requisito, int idpessoa, String desc_atividade);
+    boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, int idpessoa, String desc_atividade);
     void deletar(int idrequisito);
     boolean verificaRequisitoById(int idrequisito);
     requisito retornaRequisitoById(int idrequisito);

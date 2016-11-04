@@ -6,10 +6,12 @@
 package telas;
 
 import controller.ProjetoController;
+import controller.RequisitoController;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import model.projeto;
+import model.requisito;
 
 /**
  *
@@ -124,6 +126,7 @@ public class TelaSelecionarProjeto extends CriadorTelas {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
