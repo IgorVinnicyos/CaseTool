@@ -19,7 +19,8 @@ public interface IFuncaoController {
     void deletar(int idfuncao);
     List<funcao> retornaListaFuncoes();
     boolean verificaFuncaoById(int idfuncao);
+    boolean verificaFuncaoByNomeFuncao(String funcao);
     funcao retornaFuncaoById(int idfuncao);
-    
+    funcao retornaFuncaoByDescricao(String descricao);
     
 }

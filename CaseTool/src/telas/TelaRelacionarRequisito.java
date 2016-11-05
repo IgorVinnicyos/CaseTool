@@ -5,6 +5,8 @@
  */
 package telas;
 
+import controller.LogController;
+import controller.PessoaController;
 import controller.RastreamentoController;
 import controller.RequisitoController;
 import java.awt.event.MouseAdapter;
@@ -24,23 +26,25 @@ import model.requisito;
  * @author igor-vinicyos
  */
 public class TelaRelacionarRequisito extends CriadorInternalFrame {
-    private DefaultListModel<requisito> JModelListRequisitos   = new DefaultListModel<requisito>();
+
+    private DefaultListModel<requisito> JModelListRequisitos = new DefaultListModel<requisito>();
     private int index = 0;
     private requisito Requisito;
-    private projeto Projeto ;
+    private projeto Projeto;
     private List<requisito> listaRequisitos = new ArrayList<requisito>();
     private static TelaRelacionarRequisito instance;
+
     /**
      * Creates new form TelaRelacionarRequisito
      */
     public TelaRelacionarRequisito() {
         initComponents();
         Decricao.setEditable(false);
-        
+
     }
-    
-    public static synchronized TelaRelacionarRequisito getInstance(){
-        if(instance == null){
+
+    public static synchronized TelaRelacionarRequisito getInstance() {
+        if (instance == null) {
             instance = new TelaRelacionarRequisito();
         }
         return instance;
@@ -50,25 +54,25 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
     public void initialize() {
         jLabel6.setText(Requisito.getCodigoFormatado());
         jLabel8.setText(Requisito.getDescricao());
-       jComboBox1.removeAllItems();
-       jComboBox1.removeAll();
-       List<requisito> listReq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
-       if(listReq != null && !listReq.isEmpty()){
-           for (requisito object : listReq) {
-               if(object.getIdrequisito() != Requisito.getIdrequisito()){
-                  jComboBox1.addItem(object);
-               }
-           }
-       }
+        jComboBox1.removeAllItems();
+        jComboBox1.removeAll();
+        List<requisito> listReq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
+        if (listReq != null && !listReq.isEmpty()) {
+            for (requisito object : listReq) {
+                if (object.getIdrequisito() != Requisito.getIdrequisito()) {
+                    jComboBox1.addItem(object);
+                }
+            }
+        }
     }
-    public void setProjeto(projeto proj){
+
+    public void setProjeto(projeto proj) {
         this.Projeto = proj;
     }
-    public void setRequisito(requisito req){
+
+    public void setRequisito(requisito req) {
         this.Requisito = req;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,7 +135,7 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jLabel2.setText("Requisitos dependentes");
+        jLabel2.setText("Requisitos Dependentes");
 
         jLabel3.setText("Descrição:");
 
@@ -256,44 +260,55 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-       requisito req =(requisito) jComboBox1.getSelectedItem();
-        if(req != null){
+        requisito req = (requisito) jComboBox1.getSelectedItem();
+        if (req != null) {
             Decricao.setText(req.getDescricao());
-        }else{
+        } else {
             Decricao.setText("");
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       
-        requisito req = (requisito) jComboBox1.getSelectedItem(); 
+        
+        requisito req = (requisito) jComboBox1.getSelectedItem();
+        if(jComboBox1.getItemCount() == 1){
+            jButton1.setEnabled(false);
+        }
         jComboBox1.removeItem(req);
         listaRequisitos.add(req);
         JModelListRequisitos.addElement(req);
         jListReq.setModel(JModelListRequisitos);
-        
-       
+
         this.index++;
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(listaRequisitos.size() !=0){
-            boolean insert = RastreamentoController.getInstance().gravarDependente(Requisito.getIdprojeto(),Requisito.getIdrequisito(),listaRequisitos);
-            if(insert){
+        if (listaRequisitos.size() != 0) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Dependentes adicionados: ");
+            for (requisito object : listaRequisitos) {
+                builder.append(object.getCodigoFormatado() + ", ");
+            }
+
+            boolean log = LogController.getInstance().inserir(Requisito.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), builder.toString());
+            boolean insert = RastreamentoController.getInstance().gravarDependente(Requisito.getIdprojeto(), Requisito.getIdrequisito(), listaRequisitos);
+
+            if (insert && log) {
                 formInternalFrameClosing(null);
                 this.dispose();
             }
-        }else{
-                formInternalFrameClosing(null);
-                this.dispose();
+        } else {
+            formInternalFrameClosing(null);
+            this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jListReqMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListReqMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jListReqMouseClicked
 
 

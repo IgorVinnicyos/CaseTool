@@ -22,21 +22,21 @@ import util.HibernateUtil;
  *
  * @author igor-vinicyos
  */
-public class RequisitoController implements IRequisitoController{
+public class RequisitoController implements IRequisitoController {
+
     private static requisito requisitoInserido;
     private static RequisitoController instance;
-    
-    public static synchronized RequisitoController getInstance(){
-        if(instance == null){
+
+    public static synchronized RequisitoController getInstance() {
+        if (instance == null) {
             instance = new RequisitoController();
         }
         return instance;
     }
-    
+
     @Override
-    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito,int idpessoa, String desc_Atividade){
-        
-        
+    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, int idpessoa, String desc_Atividade) {
+
         try {
             if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
                 List<requisito> req;
@@ -44,9 +44,9 @@ public class RequisitoController implements IRequisitoController{
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 req = session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = :tipo_requisito order by cod_req asc").setParameter("idprojeto", idprojeto).setParameter("tipo_requisito", tipo_requisito).list();
-                if(req != null && !req.isEmpty()){
-                    requisito.setCod_req(req.get(req.size()-1).getCod_req() + 1);
-                }else{
+                if (req != null && !req.isEmpty()) {
+                    requisito.setCod_req(req.get(req.size() - 1).getCod_req() + 1);
+                } else {
                     requisito.setCod_req(1);
                 }
                 session.save(requisito);
@@ -54,7 +54,8 @@ public class RequisitoController implements IRequisitoController{
                 session.close();
                 this.InserirRelPessoaRequisito(requisito.getIdrequisito(), idpessoa, desc_Atividade);
                 this.requisitoInserido = requisito;
-                javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso! Id: "+requisito.getCodigoFormatado());
+                LogController.getInstance().inserir(requisito.getIdrequisito(), idpessoa, "Requisito criado");
+                javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso! Id: " + requisito.getCodigoFormatado());
                 return true;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique ID de projeto!");
@@ -75,18 +76,18 @@ public class RequisitoController implements IRequisitoController{
     public boolean verificaRequisitoById(int idrequisito) {
         List<requisito> requisito = new ArrayList<requisito>();
         try {
-            
+
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             requisito = session.createQuery("from requisito where idrequisito = :idrequisito").setParameter("idrequisito", idrequisito).list();
             session.close();
-                      
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!requisito.isEmpty()) {
-             return true;
-         }   
+            return true;
+        }
         return false;
     }
 
@@ -94,7 +95,7 @@ public class RequisitoController implements IRequisitoController{
     public requisito retornaRequisitoById(int idrequisito) {
         List<requisito> requisitos = new ArrayList<requisito>();
         try {
-            
+
             requisito requisito;
             if (this.verificaRequisitoById(idrequisito)) {
                 Session session = HibernateUtil.getSessionFactory().openSession();
@@ -108,10 +109,10 @@ public class RequisitoController implements IRequisitoController{
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum requisito para este ID!");
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return null;
     }
 
@@ -119,8 +120,8 @@ public class RequisitoController implements IRequisitoController{
     public List<requisito> retornaListaRequisitosByIdprojeto(int idprojeto) {
         List<requisito> requisitos = new ArrayList<requisito>();
         try {
-            
-          if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
+
+            if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 requisitos.addAll(session.createQuery("from requisito where idprojeto = :idprojeto order by tipo_requisito asc, cod_req asc").setParameter("idprojeto", idprojeto).list());
@@ -134,22 +135,22 @@ public class RequisitoController implements IRequisitoController{
                 if (!requisitos.isEmpty()) {
                     return requisitos;
                 }
-          } else {
-             javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique o id de projeto!");
-          }   
-                     
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique o id de projeto!");
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return null;
+        return null;
     }
 
     @Override
-    public boolean InserirRelPessoaRequisito(int idrequisito, int idpessoa, String descricao_atividade ) {
+    public boolean InserirRelPessoaRequisito(int idrequisito, int idpessoa, String descricao_atividade) {
         try {
-            
+
             if (this.verificaRequisitoById(idrequisito) && PessoaController.getInstance().verificaPessoaById(idpessoa)) {
-             
+
                 rel_pessoa_requisito rel1 = new rel_pessoa_requisito(idrequisito, idpessoa, descricao_atividade);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
@@ -157,16 +158,16 @@ public class RequisitoController implements IRequisitoController{
                 session.getTransaction().commit();
                 session.close();
                 return true;
-             
-             } else {
-                 if (!this.verificaRequisitoById(idrequisito)) {
-                     javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique id de requisito!");
-                 }
-                 if (!PessoaController.getInstance().verificaPessoaById(idpessoa)) {
-                     javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique id de pessoa!");
-                 }
-             }
-                
+
+            } else {
+                if (!this.verificaRequisitoById(idrequisito)) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique id de requisito!");
+                }
+                if (!PessoaController.getInstance().verificaPessoaById(idpessoa)) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique id de pessoa!");
+                }
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,7 +176,7 @@ public class RequisitoController implements IRequisitoController{
 
     @Override
     public List<rel_pessoa_requisito> retornaListPesReqByIDpes(int idpessoa) {
-        
+
         try {
             List<rel_pessoa_requisito> rel1 = new ArrayList<rel_pessoa_requisito>();
             if (PessoaController.getInstance().verificaPessoaById(idpessoa)) {
@@ -189,7 +190,7 @@ public class RequisitoController implements IRequisitoController{
             } else if (!PessoaController.getInstance().verificaPessoaById(idpessoa)) {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verifique id de pessoa!");
             }
-                     
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,7 +211,7 @@ public class RequisitoController implements IRequisitoController{
                 }
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, verfique o id de projeto!");
-            }             
+            }
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -229,7 +230,7 @@ public class RequisitoController implements IRequisitoController{
                 return lista.get(0);
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Erro, relacionamento não encontrado, verifique ID!");
-            }           
+            }
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -243,25 +244,25 @@ public class RequisitoController implements IRequisitoController{
 
     @Override
     public requisito retornaRequisitoByCod(String tipo_requisito, int cod_req) {
-      List<requisito> requisitos = new ArrayList<requisito>();
+        List<requisito> requisitos = new ArrayList<requisito>();
         try {
-                if(verificaRequisitoByCod(tipo_requisito, cod_req)){
-                    requisito requisito;
-                    Session session = HibernateUtil.getSessionFactory().openSession();
-                    session.beginTransaction();
-                    requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
-                    session.close();
-                    if (!requisitos.isEmpty()) {
-                        requisito = requisitos.get(0);
-                        return requisito;
-                    }
-                       
-                }else{
-                    JOptionPane.showMessageDialog(null, "Erro, requisito não encontrado verifique o tipo e o código!");
+            if (verificaRequisitoByCod(tipo_requisito, cod_req)) {
+                requisito requisito;
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
+                session.close();
+                if (!requisitos.isEmpty()) {
+                    requisito = requisitos.get(0);
+                    return requisito;
                 }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro, requisito não encontrado verifique o tipo e o código!");
+            }
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return null;
     }
 
@@ -269,19 +270,19 @@ public class RequisitoController implements IRequisitoController{
     public boolean verificaRequisitoByCod(String tipo_requisito, int cod_req) {
         List<requisito> requisitos = new ArrayList<requisito>();
         try {
-            
+
             requisito requisito;
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                session.beginTransaction();
-                requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
-                session.close();
-                if (!requisitos.isEmpty()) {
-                    return true;
-                }
-            
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            requisitos = session.createQuery("from requisito where tipo_requisito = :tipo_requisito AND cod_req = :cod_req").setParameter("tipo_requisito", tipo_requisito).setParameter("cod_req", cod_req).list();
+            session.close();
+            if (!requisitos.isEmpty()) {
+                return true;
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return false;
     }
 
@@ -289,19 +290,50 @@ public class RequisitoController implements IRequisitoController{
     public List<requisito> retornaListRequisitoByTipo(String tipo_requisito, int idprojeto) {
         List<requisito> requisitos = new ArrayList<requisito>();
         try {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                session.beginTransaction();
-                requisitos = session.createQuery("from requisito where tipo_requisito =:tipo_requisito AND idprojeto =:idprojeto").setParameter("tipo_requisito", tipo_requisito).setParameter("idprojeto", idprojeto).list();
-                session.close();
-                if (!requisitos.isEmpty()) {
-                    return requisitos;
-                }             
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            requisitos = session.createQuery("from requisito where tipo_requisito =:tipo_requisito AND idprojeto =:idprojeto").setParameter("tipo_requisito", tipo_requisito).setParameter("idprojeto", idprojeto).list();
+            session.close();
+            if (!requisitos.isEmpty()) {
+                return requisitos;
+            }
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return null;
+        return null;
     }
-    
+
+    @Override
+    public boolean atualizarRequisito(requisito req) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(req);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public int geraNovoCodigo(String tipo_requisito, int idprojeto) {
+        List<requisito> req;
+        int novoCodigo;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        req = session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = :tipo_requisito order by cod_req asc").setParameter("idprojeto", idprojeto).setParameter("tipo_requisito", tipo_requisito).list();
+        if (req != null && !req.isEmpty()) {
+            novoCodigo = req.get(req.size() - 1).getCod_req() + 1;
+        } else {
+            novoCodigo = 1;
+        }
+        session.close();
+        return novoCodigo;
+    }
 }
 /*
 try {
@@ -310,5 +342,4 @@ try {
         } catch (Exception ex) {
             Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-*/  
-
+ */

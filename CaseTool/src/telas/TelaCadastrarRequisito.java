@@ -24,7 +24,6 @@ import model.requisito;
  */
 public class TelaCadastrarRequisito extends CriadorInternalFrame {
 
-    private JDesktopPane panel;
     private projeto Projeto;
     private static TelaCadastrarRequisito instance;
 
@@ -54,10 +53,6 @@ public class TelaCadastrarRequisito extends CriadorInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Erro, verifique se há uma pessoa cadastrada na Equipe");
         }
-    }
-
-    public void setPanel(JDesktopPane DeskPanel) {
-        this.panel = DeskPanel;
     }
 
     @SuppressWarnings("unchecked")
@@ -195,7 +190,6 @@ public class TelaCadastrarRequisito extends CriadorInternalFrame {
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
-        retornaTelaAnterior();
         instance = null;
     }//GEN-LAST:event_formInternalFrameClosing
 
@@ -226,7 +220,9 @@ public class TelaCadastrarRequisito extends CriadorInternalFrame {
                 TelaRelacionarRequisito.getInstance().setRequisito(RequisitoController.getInstance().getReqInserido());
                 TelaRelacionarRequisito.getInstance().initialize();
                 TelaRelacionarRequisito.getInstance().setVisible(true);
-                panel.add(TelaRelacionarRequisito.getInstance());
+                this.setVisible(true);
+                this.getContentPane().remove(this);
+                this.getContentPane().add(TelaRelacionarRequisito.getInstance());
                 this.formInternalFrameClosing(null);
             }
         }

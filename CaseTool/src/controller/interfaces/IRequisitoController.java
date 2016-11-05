@@ -29,4 +29,6 @@ public interface IRequisitoController {
     requisito retornaRequisitoByCod(String tipo, int cod);
     boolean   verificaRequisitoByCod(String tipo_requisito, int cod_req);
     List<requisito> retornaListRequisitoByTipo(String tipo_requisito, int idprojeto);
+    boolean atualizarRequisito(requisito req);
+    int geraNovoCodigo(String tipo_requisito, int idprojeto);
 }

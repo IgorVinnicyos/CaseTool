@@ -5,6 +5,8 @@
  */
 package telas;
 
+import controller.LogController;
+import controller.PessoaController;
 import controller.RastreamentoController;
 import controller.RequisitoController;
 import java.awt.event.MouseAdapter;
@@ -381,6 +383,7 @@ public class TelaRastrearRequisito extends CriadorInternalFrame {
         int remover = JOptionPane.showConfirmDialog(null, "Deseja remover a relação de dependência entre " + reqAtual + " e " + req2 + "?", "Desfazer dependência", JOptionPane.YES_NO_OPTION);
         if (remover == 0) {
             RastreamentoController.getInstance().apagarDependente(Projeto.getIdprojeto(), req2.getIdrequisito(), reqAtual.getIdrequisito());
+            LogController.getInstance().inserir(reqAtual.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), "Removido dependente anterior: " + req2.getCodigoFormatado());
             jListModelAnteriores.removeAllElements();
             jListModelPosteriores.removeAllElements();
             jList1Anteriores.setModel(jListModelAnteriores);

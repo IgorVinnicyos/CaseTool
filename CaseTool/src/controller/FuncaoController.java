@@ -116,6 +116,9 @@ public class FuncaoController implements IFuncaoController{
        List<funcao> funcoes = this.retornaListaFuncoes();
         try {
             if (this.verificaFuncaoById(idfuncao)) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                funcoes = session.createQuery("from funcao where idfuncao = :idfuncao").setParameter("idfuncao", idfuncao).list();
                 if (!funcoes.isEmpty()) {
                     for (funcao funcao1 : funcoes) {
                         if (funcao1.getIdfuncao() == idfuncao) {
@@ -131,6 +134,45 @@ public class FuncaoController implements IFuncaoController{
         }
         return null;        
     } 
+
+    @Override
+    public boolean verificaFuncaoByNomeFuncao(String funcao) {
+        List<funcao> funcoes = new ArrayList<funcao>();
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.getSessionFactory().openSession();
+            funcoes = session.createQuery("from funcao where descricao = :descricao").setParameter("descricao", funcao).list();
+            session.close();
+        
+        }catch(Exception ex) {
+             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (!funcoes.isEmpty()) {
+            return true;
+        }
+        return false; 
+    }
+
+    @Override
+    public funcao retornaFuncaoByDescricao(String descricao) {
+       List<funcao> funcoes = this.retornaListaFuncoes();
+        try {
+            if (this.verificaFuncaoByNomeFuncao(descricao)) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                funcoes = session.createQuery("from funcao where descricao = :descricao").setParameter("descricao", descricao).list();
+                if (!funcoes.isEmpty()) {
+                    return funcoes.get(0);
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null, "Funcao " + descricao + " não existe!");
+            }
+        }catch(Exception ex) {
+             Logger.getLogger(FuncaoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;   
+    }
     
     
 }

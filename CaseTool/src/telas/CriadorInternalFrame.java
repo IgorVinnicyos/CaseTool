@@ -5,6 +5,8 @@
  */
 package telas;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author igor-vinicyos
@@ -13,11 +15,12 @@ package telas;
 // que herda o JInternalFrame pra não da erro, nos metodos nativos da internalFrame como fechar por exemplo.
 abstract class CriadorInternalFrame extends javax.swing.JInternalFrame{
     
-    protected CriadorTelas frame;
+    protected CriadorInternalFrame frame;
+    protected JDesktopPane pane;
     public void initialize(){
         
     }
-    public void setInterceptor(CriadorTelas frame){
+    public void setInterceptor(CriadorInternalFrame frame){
         this.frame = frame;
     }
     public void retornaTelaAnterior(){
@@ -27,4 +30,9 @@ abstract class CriadorInternalFrame extends javax.swing.JInternalFrame{
             this.dispose();
         }
     }
+
+    public void setPane(JDesktopPane pane) {
+        this.pane = pane;
+    }
+    
 }

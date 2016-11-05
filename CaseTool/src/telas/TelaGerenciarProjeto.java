@@ -22,34 +22,36 @@ import model.requisito;
  *
  * @author matheus
  */
-public class TelaGerenciarProjeto extends CriadorTelas{
+public class TelaGerenciarProjeto extends CriadorTelas {
 
     /**
      * Creates new form TelaGerenciarProjeto
      */
     private projeto Projeto;
-    
-    
+
     private static TelaGerenciarProjeto instance;
+
     private TelaGerenciarProjeto() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
-    
-    public static synchronized TelaGerenciarProjeto getInstance(){
-        if(instance == null){
+
+    public static synchronized TelaGerenciarProjeto getInstance() {
+        if (instance == null) {
             instance = new TelaGerenciarProjeto();
         }
         return instance;
     }
 
-    public void setProjeto(projeto Projeto){
+    public void setProjeto(projeto Projeto) {
         this.Projeto = Projeto;
     }
-    public projeto getProjeto(){
+
+    public projeto getProjeto() {
         return this.Projeto;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +69,8 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -80,21 +83,10 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         });
         getContentPane().setLayout(null);
 
-        jDesktopPane1.setBackground(new java.awt.Color(89, 115, 212));
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-        );
-
+        jDesktopPane1.setBackground(new java.awt.Color(17, 222, 251));
+        jDesktopPane1.setForeground(new java.awt.Color(205, 215, 217));
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 0, 780, 530);
+        jDesktopPane1.setBounds(10, 10, 1080, 620);
 
         jMenu5.setText("Requisitos");
 
@@ -107,6 +99,11 @@ public class TelaGerenciarProjeto extends CriadorTelas{
         jMenu5.add(jMenuItem1);
 
         jMenuItem2.setText("Alterar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem2);
 
         jMenuItem3.setText("Rastrear");
@@ -127,12 +124,21 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
         jMenuBar2.add(jMenu5);
 
-        jMenu6.setText("Equipe");
-        jMenuBar2.add(jMenu6);
+        jMenu2.setText("Pessoas");
+
+        jMenuItem5.setText("Adicionar relação Pessoa / Requisito");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar2.add(jMenu2);
 
         setJMenuBar(jMenuBar2);
 
-        setBounds(0, 0, 793, 588);
+        setBounds(0, 0, 1117, 692);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -143,63 +149,76 @@ public class TelaGerenciarProjeto extends CriadorTelas{
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        
+
         pessoa logado = PessoaController.getInstance().returnPesLogin();
         rel_pessoa_equipe rel_pes = EquipeController.getInstance().retornaRelPessoaEqpByIdpessoa(logado.getIdpessoa());
-        boolean permissao =  RastreamentoController.getInstance().verificaPermissao(Projeto.getIdprojeto(), logado.getIdpessoa(), rel_pes.getIdfuncao());
-       
-        if(permissao){
+        boolean permissao = RastreamentoController.getInstance().verificaPermissao(Projeto.getIdprojeto(), logado.getIdpessoa(), rel_pes.getIdfuncao());
+
+        if (permissao) {
             List<rel_pessoa_equipe> listPess_Eqp = EquipeController.getInstance().retornaListaDeRelPessoasEquipeByIdequipe(Projeto.getIdequipe());
-            if(listPess_Eqp != null){
-                TelaCadastrarRequisito.getInstance().setInterceptor(this);
+            if (listPess_Eqp != null) {
                 TelaCadastrarRequisito.getInstance().setVisible(true);
-                TelaCadastrarRequisito.getInstance().setPanel(jDesktopPane1);
+                TelaCadastrarRequisito.getInstance().setPane(jDesktopPane1);
                 jDesktopPane1.add(TelaCadastrarRequisito.getInstance());
-            }else{
-                int cadastrar = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma pessoa cadastrada na equipe, deseja fazer isso agora?","Membros da Equipe",JOptionPane.YES_NO_OPTION);
-                if(cadastrar == 0){
+            } else {
+                int cadastrar = JOptionPane.showConfirmDialog(null, "Você não possui nenhuma pessoa cadastrada na equipe, deseja fazer isso agora?", "Membros da Equipe", JOptionPane.YES_NO_OPTION);
+                if (cadastrar == 0) {
                     TelaIncluirPessoaEquipe.getInstance().setInterceptor(this);
                     TelaIncluirPessoaEquipe.getInstance().setEqp(EquipeController.getInstance().retornaEquipeById(Projeto.getIdequipe()));
                     TelaIncluirPessoaEquipe.getInstance().setVisible(true);
                     TelaIncluirPessoaEquipe.getInstance().initialize();
                     this.setVisible(false);
                 }
-           }
-       }
+            }
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        
+
         List<requisito> listRq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
-        if(listRq != null){
-            TelaRastrearRequisito.getInstance().setInterceptor(this);
+        if (listRq != null) {
             TelaRastrearRequisito.getInstance().setVisible(true);
+            TelaRastrearRequisito.getInstance().setPane(jDesktopPane1);
             jDesktopPane1.add(TelaRastrearRequisito.getInstance());
-        }else{
-            int cadastrar = JOptionPane.showConfirmDialog(null, "Nenhum requisito cadastrado para este projeto, deseja fazer agora?","Cadastrar requisito",JOptionPane.YES_NO_OPTION);
-            if(cadastrar == 0){
-                TelaCadastrarRequisito.getInstance().setInterceptor(this);
+        } else {
+            int cadastrar = JOptionPane.showConfirmDialog(null, "Nenhum requisito cadastrado para este projeto, deseja fazer agora?", "Cadastrar requisito", JOptionPane.YES_NO_OPTION);
+            if (cadastrar == 0) {
                 TelaCadastrarRequisito.getInstance().setVisible(true);
-                TelaCadastrarRequisito.getInstance().setPanel(jDesktopPane1);
-                jDesktopPane1.add(TelaCadastrarRequisito.getInstance()); 
+                TelaCadastrarRequisito.getInstance().setPane(jDesktopPane1);
+                jDesktopPane1.add(TelaCadastrarRequisito.getInstance());
             }
         }
-        
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-            
-        
 
-        TelaSelecionarRequisito.getInstance().setInterceptor(this);
         TelaSelecionarRequisito.getInstance().setProjeto(Projeto);
-        TelaSelecionarRequisito.getInstance().setPanel(jDesktopPane1);
+        TelaSelecionarRequisito.getInstance().setPane(jDesktopPane1);
         TelaSelecionarRequisito.getInstance().initialize();
         TelaSelecionarRequisito.getInstance().setVisible(true);
         jDesktopPane1.add(TelaSelecionarRequisito.getInstance());
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        TelaSelecionarRequisitoEditar.getInstance().setProjeto(Projeto);
+        TelaSelecionarRequisitoEditar.getInstance().initialize();
+        TelaSelecionarRequisitoEditar.getInstance().setPane(jDesktopPane1);
+        TelaSelecionarRequisitoEditar.getInstance().setVisible(true);
+        jDesktopPane1.add(TelaSelecionarRequisitoEditar.getInstance());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        TelaSelecionarRequisitoPessoa.getInstance().setProjeto(Projeto);
+        TelaSelecionarRequisitoPessoa.getInstance().setPane(jDesktopPane1);
+        TelaSelecionarRequisitoPessoa.getInstance().initialize();
+        TelaSelecionarRequisitoPessoa.getInstance().setVisible(true);
+        jDesktopPane1.add(TelaSelecionarRequisitoPessoa.getInstance());
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,12 +259,13 @@ public class TelaGerenciarProjeto extends CriadorTelas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

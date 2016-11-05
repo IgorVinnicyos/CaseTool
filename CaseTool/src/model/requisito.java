@@ -42,6 +42,10 @@ public class requisito {
         
     }
 
+    public void setTipo_requisito(String tipo_requisito) {
+        this.tipo_requisito = tipo_requisito;
+    }
+
     public void setCod_req(int cod_req) {
         this.cod_req = cod_req;
     }
@@ -114,6 +118,8 @@ public class requisito {
             cod_formatado = this.tipo_requisito+" 00"+cod_req;
         }else if(this.cod_req >=10 && this.cod_req < 100){
             cod_formatado = this.tipo_requisito+" 0"+cod_req;
+        }else if(this.cod_req >=100 && this.cod_req < 100){
+            cod_formatado = this.tipo_requisito+" "+cod_req;
         }
         return cod_formatado;
     }

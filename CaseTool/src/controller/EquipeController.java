@@ -308,6 +308,32 @@ public class EquipeController implements IEquipeController {
         return false;
     }
 
+    @Override
+    public List<rel_pessoa_equipe> retornaListaDeRelPessoasEquipeByFuncaoDescricao(String descricao) {
+        try {
+            if (FuncaoController.getInstance().verificaFuncaoByNomeFuncao(descricao)) {
+                List<rel_pessoa_equipe> lista = new ArrayList<rel_pessoa_equipe>();
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                lista = session.createQuery("from rel_pessoa_equipe where idfuncao = :idfuncao").setParameter("idfuncao", FuncaoController.getInstance().retornaFuncaoByDescricao(descricao).getIdfuncao()).list();
+                session.close();
+
+                if (!lista.isEmpty()) {
+                    return lista;
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado!");
+                }
+
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado!");
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }
 /*
  try {

@@ -59,9 +59,7 @@ public class rel_pessoa_equipe {
 
     @Override
     public String toString() {
-        pessoa pess = PessoaController.getInstance().retornaPessoaById(idpessoa);
-        String nome = pess.getNome();
-        return nome;
+        return PessoaController.getInstance().retornaPessoaById(idpessoa).getNome();
     }
     
     

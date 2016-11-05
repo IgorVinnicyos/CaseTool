@@ -21,23 +21,23 @@ import model.requisito;
  *
  * @author matheus
  */
-public class TelaSelecionarRequisito extends CriadorInternalFrame {
+public class TelaSelecionarRequisitoPessoa extends CriadorInternalFrame {
 
     /**
      * Creates new form TelaSelecionarRequisito
      */
     private projeto Projeto;
     private DefaultListModel<requisito> jListModelRequisito = new DefaultListModel<requisito>();
-    private static TelaSelecionarRequisito instance;
+    private static TelaSelecionarRequisitoPessoa instance;
 
     
-    private TelaSelecionarRequisito() {
+    private TelaSelecionarRequisitoPessoa() {
         initComponents();
     }
 
-    public static synchronized TelaSelecionarRequisito getInstance() {
+    public static synchronized TelaSelecionarRequisitoPessoa getInstance() {
         if (instance == null) {
-            instance = new TelaSelecionarRequisito();
+            instance = new TelaSelecionarRequisitoPessoa();
         }
         return instance;
     }
@@ -45,7 +45,6 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
     @Override
     public void initialize() {
         List<requisito> listReq = RequisitoController.getInstance().retornaListaRequisitosByIdprojeto(Projeto.getIdprojeto());
-
         if (listReq != null) {
             for (requisito object : listReq) {
                 System.out.println(object);
@@ -56,10 +55,13 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
         adicionarEventoClick();
     }
 
+
     
     public void setProjeto(projeto Projeto) {
         this.Projeto = Projeto;
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,7 +104,7 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        jLabel1.setText("Selecionar Requisito");
+        jLabel1.setText("Selecionar Requisito Para Editar");
 
         jScrollPane1.setViewportView(jList1);
 
@@ -113,14 +115,13 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,7 +133,7 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,12 +156,14 @@ public class TelaSelecionarRequisito extends CriadorInternalFrame {
                     int index = jList1.locationToIndex(e.getPoint());
                     //requisito da lista central
                     requisito req = jListModelRequisito.getElementAt(index);
-                    TelaRelacionarRequisito.getInstance().setProjeto(Projeto);
-                    TelaRelacionarRequisito.getInstance().setRequisito(req);
-                    TelaRelacionarRequisito.getInstance().initialize();
-                    TelaRelacionarRequisito.getInstance().setVisible(true);
+                    TelaRelacionarPessoasRequisito.getInstance().setProjeto(Projeto);
+                    TelaRelacionarPessoasRequisito.getInstance().setRequisito(req);
+                    TelaRelacionarPessoasRequisito.getInstance().setPane(pane);
+                    TelaRelacionarPessoasRequisito.getInstance().initialize();
+                    TelaRelacionarPessoasRequisito.getInstance().setVisible(true);
+                    instance.setVisible(false);
                     pane.remove(instance);
-                    pane.add(TelaRelacionarRequisito.getInstance());
+                    pane.add(TelaRelacionarPessoasRequisito.getInstance());
                     instance.formInternalFrameClosing(null);
                 }
             }

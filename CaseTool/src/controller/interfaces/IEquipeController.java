@@ -25,4 +25,5 @@ public interface IEquipeController {
     boolean verificaEquipeByNome(String nome);
     boolean verificaPessoaExisteEmEQP(int idpessoa, int idequipe);
     boolean verificaFuncao(int idfuncao, int idpessoa, int projeto);
+    List<rel_pessoa_equipe> retornaListaDeRelPessoasEquipeByFuncaoDescricao(String funcao);
 }
