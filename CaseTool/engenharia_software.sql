@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Tempo de geração: 04/11/2016 às 02:53
+-- Tempo de geração: 06/11/2016 às 14:20
 -- Versão do servidor: 10.1.16-MariaDB
 -- Versão do PHP: 5.6.24
 
@@ -40,8 +40,15 @@ CREATE TABLE `equipe` (
 
 CREATE TABLE `funcao` (
   `idfuncao` int(11) NOT NULL,
-  `descricao` text NOT NULL
+  `descricao` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Fazendo dump de dados para tabela `funcao`
+--
+
+INSERT INTO `funcao` (`idfuncao`, `descricao`) VALUES
+(2, 'programador');
 
 -- --------------------------------------------------------
 
@@ -196,7 +203,9 @@ ALTER TABLE `equipe`
 -- Índices de tabela `funcao`
 --
 ALTER TABLE `funcao`
-  ADD PRIMARY KEY (`idfuncao`);
+  ADD PRIMARY KEY (`idfuncao`),
+  ADD UNIQUE KEY `descricao` (`descricao`),
+  ADD UNIQUE KEY `descricao_2` (`descricao`);
 
 --
 -- Índices de tabela `log`
@@ -287,12 +296,12 @@ ALTER TABLE `equipe`
 -- AUTO_INCREMENT de tabela `funcao`
 --
 ALTER TABLE `funcao`
-  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de tabela `log`
 --
 ALTER TABLE `log`
-  MODIFY `idlog` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de tabela `login`
 --
@@ -317,22 +326,22 @@ ALTER TABLE `projeto`
 -- AUTO_INCREMENT de tabela `rastreamento_requisitos`
 --
 ALTER TABLE `rastreamento_requisitos`
-  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idtupla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de tabela `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
-  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de tabela `rel_pessoa_requisito`
 --
 ALTER TABLE `rel_pessoa_requisito`
-  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_rel_pes_req` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de tabela `requisito`
 --
 ALTER TABLE `requisito`
-  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- Restrições para dumps de tabelas
 --
