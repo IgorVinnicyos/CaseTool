@@ -71,6 +71,8 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
 
@@ -86,7 +88,7 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         jDesktopPane1.setBackground(new java.awt.Color(17, 222, 251));
         jDesktopPane1.setForeground(new java.awt.Color(205, 215, 217));
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(10, 10, 1080, 620);
+        jDesktopPane1.setBounds(10, 10, 1270, 620);
 
         jMenu5.setText("Requisitos");
 
@@ -134,11 +136,22 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         });
         jMenu2.add(jMenuItem5);
 
+        jMenuItem6.setText("Gerenciar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
         jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Log");
+        jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);
 
-        setBounds(0, 0, 1117, 692);
+        setBounds(0, 0, 1291, 692);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -220,6 +233,15 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         jDesktopPane1.add(TelaSelecionarRequisitoPessoa.getInstance());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        TelaGerenciarRelacionamentoReq.getInstance().setProjeto(Projeto);
+        TelaGerenciarRelacionamentoReq.getInstance().setPane(jDesktopPane1);
+        TelaGerenciarRelacionamentoReq.getInstance().initialize();
+        TelaGerenciarRelacionamentoReq.getInstance().setVisible(true);
+        jDesktopPane1.add(TelaGerenciarRelacionamentoReq.getInstance());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +282,7 @@ public class TelaGerenciarProjeto extends CriadorTelas {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
@@ -267,5 +290,6 @@ public class TelaGerenciarProjeto extends CriadorTelas {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

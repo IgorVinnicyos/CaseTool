@@ -217,9 +217,8 @@ public class TelaAlterarRequisito extends CriadorInternalFrame {
             }
             requisito.setDescricao(jTextArea2.getText());
             requisito.setTempo_estimado(Integer.parseInt(jTextField2.getText()));
-            boolean req = RequisitoController.getInstance().atualizarRequisito(requisito);
-            boolean log = LogController.getInstance().inserir(requisito.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), jTextArea1.getText());
-            if(req && log){
+            boolean req = RequisitoController.getInstance().atualizarRequisito(requisito, jTextArea1.getText());
+            if(req){
                 javax.swing.JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
                 this.setVisible(false);
                 pane.remove(this);

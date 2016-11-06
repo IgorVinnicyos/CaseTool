@@ -304,10 +304,12 @@ public class RequisitoController implements IRequisitoController {
     }
 
     @Override
-    public boolean atualizarRequisito(requisito req) {
+    public boolean atualizarRequisito(requisito req, String comentario) {
+        log log = new log(req.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), comentario);
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
+            session.save(log);
             session.update(req);
             session.getTransaction().commit();
             session.close();
@@ -333,6 +335,45 @@ public class RequisitoController implements IRequisitoController {
         }
         session.close();
         return novoCodigo;
+    }
+
+    @Override
+    public List<rel_pessoa_requisito> retornaListPesReqByIDReq(int idrequisito) {
+        if (verificaRequisitoById(idrequisito)) {
+            try {
+                List<rel_pessoa_requisito> rel1 = new ArrayList<rel_pessoa_requisito>();
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    session.beginTransaction();
+                    rel1 = session.createQuery("from rel_pessoa_requisito where idrequisito = :idrequisito").setParameter("idrequisito", idrequisito).list();
+                    session.close();
+                    if (rel1 != null && !rel1.isEmpty()) {
+                        return rel1;
+                    }
+                
+
+            } catch (Exception ex) {
+                Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean AtualizaRelPessoaRequisito(rel_pessoa_requisito rel, String comentario) {
+        log log = new log(rel.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), comentario);
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(log);
+            session.update(rel);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(RequisitoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
 /*

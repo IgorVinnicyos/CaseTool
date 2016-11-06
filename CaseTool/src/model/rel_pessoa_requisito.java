@@ -109,7 +109,10 @@ public class rel_pessoa_requisito {
         return id_rel_pes_req;
     }
 
-    
+    @Override
+    public String toString(){
+        return PessoaController.getInstance().retornaPessoaById(idpessoa).getNome();
+    }
     
     
     
