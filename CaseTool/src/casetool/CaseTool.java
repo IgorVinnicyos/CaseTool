@@ -12,6 +12,7 @@ import model.*;
 import org.hibernate.Session;
 import controller.*;
 import javax.swing.JOptionPane;
+import relatorio.Relatorio;
 import telas.TelaLogin;
 import util.HibernateUtil;
 
@@ -28,7 +29,7 @@ public class CaseTool {
         // TODO code application logic here
      //List<requisito> req= RequisitoController.getInstance().retornaListRequisitoByTipo("R", 1);
       //  System.out.println(req.get(0));
-     
+  
       TelaLogin login = TelaLogin.getInstance();
       login.setVisible(true);
      

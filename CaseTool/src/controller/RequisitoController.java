@@ -35,12 +35,12 @@ public class RequisitoController implements IRequisitoController {
     }
 
     @Override
-    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, int idpessoa, String desc_Atividade) {
+    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, int idpessoa, String desc_Atividade,String restricoes, String expectativas, int prioridade) {
 
         try {
             if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
                 List<requisito> req;
-                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto, tipo_requisito);
+                requisito requisito = new requisito(tempo_estimado, descricao, idprojeto, tipo_requisito,restricoes,expectativas,prioridade);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 req = session.createQuery("from requisito where idprojeto = :idprojeto and tipo_requisito = :tipo_requisito order by cod_req asc").setParameter("idprojeto", idprojeto).setParameter("tipo_requisito", tipo_requisito).list();

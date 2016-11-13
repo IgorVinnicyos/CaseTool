@@ -22,13 +22,16 @@ public class requisito {
     private boolean concluido;
     private int tempo_estimado;
     private String descricao;
+    private String restricoes;
+    private String expectativas;
+    private int prioridade;
     private Date data_inicio;
     private Date data_termino;
     private int idprojeto;
     private String tipo_requisito;
     private int cod_req;
 
-    public requisito(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito) {
+    public requisito(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, String restricoes, String expectativas, int prioridade) {
         this.tempo_estimado = tempo_estimado;
         this.descricao = descricao;
         this.idprojeto = idprojeto;
@@ -36,6 +39,9 @@ public class requisito {
         this.data_termino = data_termino;
         this.tipo_requisito = tipo_requisito;
         this.cod_req = cod_req;
+        this.restricoes = restricoes;
+        this.expectativas = expectativas;
+        this.prioridade = prioridade;
     }
     
     private requisito(){
@@ -118,11 +124,36 @@ public class requisito {
             cod_formatado = this.tipo_requisito+" 00"+cod_req;
         }else if(this.cod_req >=10 && this.cod_req < 100){
             cod_formatado = this.tipo_requisito+" 0"+cod_req;
-        }else if(this.cod_req >=100 && this.cod_req < 100){
+        }else if(this.cod_req >=100 && this.cod_req < 1000){
             cod_formatado = this.tipo_requisito+" "+cod_req;
         }
         return cod_formatado;
     }
+
+    public String getRestricoes() {
+        return restricoes;
+    }
+
+    public void setRestricoes(String restricoes) {
+        this.restricoes = restricoes;
+    }
+
+    public String getExpectativas() {
+        return expectativas;
+    }
+
+    public void setExpectativas(String expectativas) {
+        this.expectativas = expectativas;
+    }
+
+    public int getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(int prioridade) {
+        this.prioridade = prioridade;
+    }
+    
     @Override
     public String toString() {
         return getCodigoFormatado(); 
