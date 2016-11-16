@@ -270,9 +270,9 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         requisito req = (requisito) jComboBox1.getSelectedItem();
-        if(jComboBox1.getItemCount() == 1){
+        if (jComboBox1.getItemCount() == 1) {
             jButton1.setEnabled(false);
         }
         jComboBox1.removeItem(req);
@@ -281,7 +281,7 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
         jListReq.setModel(JModelListRequisitos);
 
         this.index++;
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -297,8 +297,11 @@ public class TelaRelacionarRequisito extends CriadorInternalFrame {
             boolean insert = RastreamentoController.getInstance().gravarDependente(Requisito.getIdprojeto(), Requisito.getIdrequisito(), listaRequisitos);
 
             if (insert && log) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
                 formInternalFrameClosing(null);
                 this.dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null, "Algo de errado aconteceu!");
             }
         } else {
             formInternalFrameClosing(null);

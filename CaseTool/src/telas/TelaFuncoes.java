@@ -45,7 +45,7 @@ public class TelaFuncoes extends CriadorTelas {
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Nova função");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -59,7 +59,7 @@ public class TelaFuncoes extends CriadorTelas {
             .addGroup(layout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addComponent(jButton1)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,6 +74,7 @@ public class TelaFuncoes extends CriadorTelas {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
+        frame.setVisible(true);
         this.dispose();
         instance = null;
     }//GEN-LAST:event_formWindowClosing
@@ -82,7 +83,7 @@ public class TelaFuncoes extends CriadorTelas {
         // TODO add your handling code here:
         TelaCadastraFuncao.getInstance().setInterceptor(this);
         TelaCadastraFuncao.getInstance().setVisible(true);
-        this.formWindowClosing(null);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

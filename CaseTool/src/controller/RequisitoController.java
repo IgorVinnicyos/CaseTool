@@ -35,7 +35,7 @@ public class RequisitoController implements IRequisitoController {
     }
 
     @Override
-    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, int idpessoa, String desc_Atividade,String restricoes, String expectativas, int prioridade) {
+    public boolean inserir(int tempo_estimado, String descricao, int idprojeto, String tipo_requisito, String restricoes, String expectativas, int prioridade) {
 
         try {
             if (ProjetoController.getInstance().verificaProjetoById(idprojeto)) {
@@ -52,9 +52,8 @@ public class RequisitoController implements IRequisitoController {
                 session.save(requisito);
                 session.getTransaction().commit();
                 session.close();
-                this.InserirRelPessoaRequisito(requisito.getIdrequisito(), idpessoa, desc_Atividade);
                 this.requisitoInserido = requisito;
-                LogController.getInstance().inserir(requisito.getIdrequisito(), idpessoa, "Requisito criado");
+                LogController.getInstance().inserir(requisito.getIdrequisito(), PessoaController.getInstance().returnPesLogin().getIdpessoa(), "Requisito criado");
                 javax.swing.JOptionPane.showMessageDialog(null, "Requisito salvo com sucesso! Id: " + requisito.getCodigoFormatado());
                 return true;
             } else {
