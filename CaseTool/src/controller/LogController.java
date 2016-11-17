@@ -30,12 +30,17 @@ public class LogController implements ILogController{
 
     @Override
     public boolean inserir(int idrequisito, int idpessoa, String alteracoes) {
+        List<log> logs = new ArrayList<log>();
         try {
            if (RequisitoController.getInstance().verificaRequisitoById(idrequisito) && PessoaController.getInstance().verificaPessoaById(idpessoa)) {
                
                 log log = new log(idrequisito, idpessoa, alteracoes);
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
+                logs = session.createQuery("from log where idrequisito = :idrequisito order by versao asc").setParameter("idrequisito", idrequisito).list();
+                if(logs != null && !logs.isEmpty()){
+                    log.setVersao(logs.get(logs.size()-1).getVersao()+1);
+                }
                 session.save(log);
                 session.getTransaction().commit();
                 session.close();

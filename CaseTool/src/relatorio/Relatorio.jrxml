@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0a3d033-30a1-4fce-b8f1-49e76577ee0a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="331"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -128,71 +128,134 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="LogRelatorio" uuid="ae1e9bab-f6fd-423f-b442-ebe004f89e12">
 		<parameter name="idreq" class="java.lang.Integer"/>
-		<queryString language="hql">
-			<![CDATA[from log]]>
+		<queryString>
+			<![CDATA[select * from log where idrequisito = $P{idreq}]]>
 		</queryString>
-		<field name="idrequisito" class="java.lang.Integer">
-			<fieldDescription><![CDATA[idrequisito]]></fieldDescription>
+		<field name="idlog" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="alteracoes" class="java.lang.String">
-			<fieldDescription><![CDATA[alteracoes]]></fieldDescription>
+		<field name="idrequisito" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="idpessoa" class="java.lang.Integer">
-			<fieldDescription><![CDATA[idpessoa]]></fieldDescription>
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="versao" class="java.lang.Integer">
-			<fieldDescription><![CDATA[versao]]></fieldDescription>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="alteracoes" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="data_modificacao" class="java.sql.Timestamp">
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<group name="versao">
 			<groupExpression><![CDATA[$F{versao}]]></groupExpression>
 		</group>
 	</subDataset>
-	<queryString language="hql">
-		<![CDATA[from requisito]]>
+	<subDataset name="PessoasRelatorio" uuid="83f2eb4a-5d6f-4e39-99d5-8c689c3cd6bf">
+		<parameter name="idreq" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select pessoa.nome, rel_pessoa_requisito.descricao_atividade, rel_pessoa_requisito.tempo, funcao.descricao
+from pessoa, rel_pessoa_requisito, funcao, rel_pessoa_equipe
+where rel_pessoa_requisito.idrequisito = 1 and rel_pessoa_requisito.idpessoa = pessoa.idpessoa and rel_pessoa_equipe.idpessoa = pessoa.idpessoa and funcao.idfuncao = rel_pessoa_equipe.idfuncao]]>
+		</queryString>
+		<field name="nome" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="descricao_atividade" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="tempo" class="java.sql.Time">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="descricao" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="nome">
+			<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select * from requisito]]>
 	</queryString>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
-	<field name="cod_req" class="java.lang.Integer">
-		<fieldDescription><![CDATA[cod_req]]></fieldDescription>
-	</field>
-	<field name="codigoFormatado" class="java.lang.String">
-		<fieldDescription><![CDATA[codigoFormatado]]></fieldDescription>
+	<field name="idrequisito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="concluido" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[concluido]]></fieldDescription>
-	</field>
-	<field name="data_inicio" class="java.util.Date">
-		<fieldDescription><![CDATA[data_inicio]]></fieldDescription>
-	</field>
-	<field name="data_termino" class="java.util.Date">
-		<fieldDescription><![CDATA[data_termino]]></fieldDescription>
-	</field>
-	<field name="descricao" class="java.lang.String">
-		<fieldDescription><![CDATA[descricao]]></fieldDescription>
-	</field>
-	<field name="expectativas" class="java.lang.String">
-		<fieldDescription><![CDATA[expectativas]]></fieldDescription>
-	</field>
-	<field name="idprojeto" class="java.lang.Integer">
-		<fieldDescription><![CDATA[idprojeto]]></fieldDescription>
-	</field>
-	<field name="idrequisito" class="java.lang.Integer">
-		<fieldDescription><![CDATA[idrequisito]]></fieldDescription>
-	</field>
-	<field name="prioridade" class="java.lang.Integer">
-		<fieldDescription><![CDATA[prioridade]]></fieldDescription>
-	</field>
-	<field name="restricoes" class="java.lang.String">
-		<fieldDescription><![CDATA[restricoes]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="tempo_estimado" class="java.lang.Integer">
-		<fieldDescription><![CDATA[tempo_estimado]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_inicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_termino" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idprojeto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="tipo_requisito" class="java.lang.String">
-		<fieldDescription><![CDATA[tipo_requisito]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod_req" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="expectativas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="restricoes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prioridade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -215,7 +278,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="487" splitType="Stretch">
+		<band height="605" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="54" width="100" height="20" uuid="7bd87817-0fde-484d-8996-e8c7afd71b11"/>
 				<textElement>
@@ -257,11 +320,11 @@
 				<textFieldExpression><![CDATA[$F{restricoes}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="190" y="241" width="175" height="20" uuid="9b732fe4-229c-48d2-85cb-87a832d9c403"/>
+				<reportElement x="241" y="228" width="64" height="25" uuid="9b732fe4-229c-48d2-85cb-87a832d9c403"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Log de alterações]]></text>
+				<text><![CDATA[LOG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="158" y="15" width="100" height="20" uuid="3079c689-1934-42e2-8ec9-11e73cfa0f0c"/>
@@ -269,12 +332,15 @@
 			</staticText>
 			<textField>
 				<reportElement x="258" y="15" width="100" height="20" uuid="ef6027e9-8312-4a4b-8625-2d4118bd1cec"/>
-				<textFieldExpression><![CDATA[$F{codigoFormatado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo_requisito}+$F{cod_req}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 5" style="table 5" x="69" y="292" width="360" height="140" isPrintWhenDetailOverflows="true" uuid="63bbc11c-b9e4-4520-8a68-900ce9d174ae"/>
+				<reportElement key="table 5" style="table 5" x="70" y="270" width="402" height="140" isPrintWhenDetailOverflows="true" uuid="63bbc11c-b9e4-4520-8a68-900ce9d174ae"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="LogRelatorio" uuid="39e22e6c-9675-4c33-b83f-ba05a8b1ea89">
+					<datasetRun subDataset="LogRelatorio" uuid="b86b3b47-a5e3-4858-8c81-9524c3fecfd7">
+						<datasetParameter name="idreq">
+							<datasetParameterExpression><![CDATA[$F{idrequisito}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="90" uuid="d5cf8f22-50cb-4751-a8f2-b9503767df9c">
@@ -282,15 +348,15 @@
 						<jr:tableFooter style="table 5_TH" height="30"/>
 						<jr:columnHeader style="table 5_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="ec14a788-1c0e-42b2-ac35-6219b68da0db"/>
-								<text><![CDATA[idrequisito]]></text>
+								<reportElement x="0" y="0" width="90" height="30" uuid="35fbbf8e-3ec8-4c6f-a18a-d875dc197d5d"/>
+								<text><![CDATA[Data]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 5_CH" height="30"/>
 						<jr:detailCell style="table 5_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="5e0f3fc5-3728-4284-ae8b-79e0021f2147"/>
-								<textFieldExpression><![CDATA[$F{idrequisito}]]></textFieldExpression>
+								<reportElement x="0" y="0" width="90" height="20" uuid="93d975f8-3ed4-42c6-b195-cf9e55d95d78"/>
+								<textFieldExpression><![CDATA[$F{data_modificacao}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -347,13 +413,99 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<componentElement>
+				<reportElement key="table 7" style="table 7" x="144" y="439" width="285" height="140" uuid="dfc230a5-9b3e-40d8-ba7c-36861e9c7dfc"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PessoasRelatorio" uuid="aa2ce53c-9b22-4d4c-b3aa-a9532523cc12">
+						<datasetParameter name="idreq">
+							<datasetParameterExpression><![CDATA[$F{idrequisito}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="ab6d8c7f-ea3e-4588-b259-0c78309a7c6b">
+						<jr:tableHeader style="table 7_TH" height="30"/>
+						<jr:tableFooter style="table 7_TH" height="30"/>
+						<jr:columnHeader style="table 7_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="a1189e11-833d-4f96-b15b-dabe991a4acf"/>
+								<text><![CDATA[nome]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 7_CH" height="30"/>
+						<jr:detailCell style="table 7_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="726c8351-c3d5-4004-a457-a7b10a84d15d"/>
+								<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1e7a8a98-cc5a-4616-a5c2-779ead2ed448">
+						<jr:tableHeader style="table 7_TH" height="30"/>
+						<jr:tableFooter style="table 7_TH" height="30"/>
+						<jr:columnHeader style="table 7_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5e340734-89b3-4733-967e-b757250085f0"/>
+								<text><![CDATA[descricao_atividade]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 7_CH" height="30"/>
+						<jr:detailCell style="table 7_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="bd53f2e8-9ed0-4e1e-81d8-c49d4d1f8780"/>
+								<textFieldExpression><![CDATA[$F{descricao_atividade}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="66033b8f-fec9-4fe8-bc03-a3492efacff6">
+						<jr:tableHeader style="table 7_TH" height="30"/>
+						<jr:tableFooter style="table 7_TH" height="30"/>
+						<jr:columnHeader style="table 7_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="770273b4-e7a2-4f39-98ec-ab259d1aff35"/>
+								<text><![CDATA[tempo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 7_CH" height="30"/>
+						<jr:detailCell style="table 7_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="608245af-eaa0-4c4b-bc5c-17ad291a1aba"/>
+								<textFieldExpression><![CDATA[$F{tempo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="928c5c0f-d822-4be4-b6b0-f50a74c32745">
+						<jr:tableHeader style="table 7_TH" height="30"/>
+						<jr:tableFooter style="table 7_TH" height="30"/>
+						<jr:columnHeader style="table 7_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="02353fd3-2ccc-42fd-9eff-97b3b8799988"/>
+								<text><![CDATA[descricao]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 7_CH" height="30"/>
+						<jr:detailCell style="table 7_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c73d982c-58fb-4e64-b225-2ca7b0058c4f"/>
+								<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="241" y="414" width="117" height="25" uuid="e5064d4c-fcf5-4b8e-9650-07e4d86e1f3f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pessoas]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="21" splitType="Stretch">
+		<band height="197" splitType="Stretch">
 			<textField>
 				<reportElement x="429" y="1" width="80" height="20" uuid="b67ee777-db88-42e3-b5d5-5210b82249cc"/>
 				<textElement textAlignment="Right"/>
