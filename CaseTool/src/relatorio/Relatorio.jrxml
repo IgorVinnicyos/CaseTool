@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0a3d033-30a1-4fce-b8f1-49e76577ee0a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="225"/>
+	<property name="ireport.y" value="192"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -64,22 +64,136 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1" uuid="51f49e5c-559f-449e-ad05-9bb09ceb12ea"/>
-	<subDataset name="Table Dataset 2" uuid="cebbf894-4f5d-4397-b978-d74b6e90ed1a"/>
-	<subDataset name="Table Dataset 3" uuid="3f043227-6647-4e41-9d3a-984c55c08272"/>
-	<subDataset name="Table Dataset 4" uuid="1d8f7d2e-7641-45c0-b028-82a25b7a48bf"/>
-	<subDataset name="dataset1" uuid="43ef5143-fac1-434c-9a0d-c2de8ccedc30"/>
-	<subDataset name="Table Dataset 5" uuid="2079752a-3c9c-450e-931f-87e29186a441"/>
-	<subDataset name="Table Dataset 6" uuid="e5af8700-5140-4dc0-818f-6a5b697265b5"/>
-	<field name="descricao" class="java.lang.String"/>
-	<field name="expectativas" class="java.lang.String"/>
-	<field name="restricoes" class="java.lang.String"/>
-	<field name="prioridade" class="java.lang.Integer"/>
-	<field name="data_modificacao" class="java.util.Date"/>
-	<field name="versao" class="java.lang.Integer"/>
-	<field name="alteracoes" class="java.lang.String"/>
-	<field name="nome" class="java.lang.String"/>
-	<field name="cod_formatado" class="java.lang.String"/>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="LogRelatorio" uuid="ae1e9bab-f6fd-423f-b442-ebe004f89e12">
+		<parameter name="idreq" class="java.lang.Integer"/>
+		<queryString language="hql">
+			<![CDATA[from log]]>
+		</queryString>
+		<field name="idrequisito" class="java.lang.Integer">
+			<fieldDescription><![CDATA[idrequisito]]></fieldDescription>
+		</field>
+		<field name="alteracoes" class="java.lang.String">
+			<fieldDescription><![CDATA[alteracoes]]></fieldDescription>
+		</field>
+		<field name="idpessoa" class="java.lang.Integer">
+			<fieldDescription><![CDATA[idpessoa]]></fieldDescription>
+		</field>
+		<field name="versao" class="java.lang.Integer">
+			<fieldDescription><![CDATA[versao]]></fieldDescription>
+		</field>
+		<group name="versao">
+			<groupExpression><![CDATA[$F{versao}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="hql">
+		<![CDATA[from requisito]]>
+	</queryString>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="cod_req" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_req]]></fieldDescription>
+	</field>
+	<field name="codigoFormatado" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoFormatado]]></fieldDescription>
+	</field>
+	<field name="concluido" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[concluido]]></fieldDescription>
+	</field>
+	<field name="data_inicio" class="java.util.Date">
+		<fieldDescription><![CDATA[data_inicio]]></fieldDescription>
+	</field>
+	<field name="data_termino" class="java.util.Date">
+		<fieldDescription><![CDATA[data_termino]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="expectativas" class="java.lang.String">
+		<fieldDescription><![CDATA[expectativas]]></fieldDescription>
+	</field>
+	<field name="idprojeto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idprojeto]]></fieldDescription>
+	</field>
+	<field name="idrequisito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idrequisito]]></fieldDescription>
+	</field>
+	<field name="prioridade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[prioridade]]></fieldDescription>
+	</field>
+	<field name="restricoes" class="java.lang.String">
+		<fieldDescription><![CDATA[restricoes]]></fieldDescription>
+	</field>
+	<field name="tempo_estimado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[tempo_estimado]]></fieldDescription>
+	</field>
+	<field name="tipo_requisito" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_requisito]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -131,123 +245,6 @@
 				<text><![CDATA[Prioridade:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="129" y="181" width="18" height="20" uuid="b8be133e-f64e-4759-91a8-d0bda8a2ff40"/>
-				<textFieldExpression><![CDATA[(valueOf($F{prioridade}).equals("1") ? "X" : "")]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="147" y="181" width="82" height="20" uuid="f49b1f4d-aece-432f-9bca-8c86dc9bc645"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Essencial]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="264" y="181" width="76" height="20" uuid="35934677-e247-44ef-a036-42a812af6e7a"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Importante]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="246" y="181" width="18" height="20" uuid="835dbfeb-244d-445e-ba82-a82b8a6e1abe"/>
-				<textFieldExpression><![CDATA[(valueOf($F{prioridade}).equals("2") ? "X" : "")]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="383" y="181" width="76" height="20" uuid="bb04f632-5e51-4e66-81c5-1aa8eb526652"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Desejável]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="365" y="181" width="18" height="20" uuid="3508f0f3-995a-4f42-b33b-8321f54d29b7"/>
-				<textFieldExpression><![CDATA[(valueOf($F{prioridade}).equals("3") ? "X" : "")]]></textFieldExpression>
-			</textField>
-			<componentElement>
-				<reportElement key="table 2" style="table 2" x="39" y="281" width="450" height="80" uuid="9fb0c7c9-7333-44ef-982a-c3d3ae4ec6cc"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 6" uuid="84fd2249-c5f4-4654-99eb-65d9bdde182a">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="132" uuid="cec4d62e-045f-4fda-9a78-7c9fafe7f900">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="26" y="11" width="46" height="19" uuid="08666170-a877-4d1b-93d2-98d68f60d877"/>
-								<textElement>
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Data]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 2_TD" height="27" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="132" height="27" uuid="8db083b0-2c54-47ca-ad3b-ee0311b879ef"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{data_modificacao}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="f8008b8d-83ba-4786-94f9-1577b7a18032">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="16" y="11" width="64" height="19" uuid="281ece9e-0a0f-4a7e-8ff2-b755d38c418c"/>
-								<textElement>
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Versão]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 2_TD" height="27" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="27" uuid="54fa8ea8-24dc-46bf-89de-2d0b0052f585"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{versao}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="232" uuid="519ffd34-083b-416b-b144-6d5cb674f2e4">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="82" y="11" width="86" height="19" uuid="6e0b6a09-a3f8-4fb1-a293-795c58476f19"/>
-								<textElement>
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Alterações]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 2_TD" height="27" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="232" height="27" uuid="4f962075-bd2f-4324-8a37-16611fc20829"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{alteracoes}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="110" uuid="b16bdb87-5a73-4c11-8cc6-194dcc058872">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="34" y="11" width="55" height="19" uuid="fb7912db-d9d9-46db-94a0-fa4399be8062"/>
-								<textElement>
-									<font size="13" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Autor]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 2_TD" height="27" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="110" height="27" uuid="8b6b2c4b-4f84-490e-885a-5439c99d3927"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<textField>
 				<reportElement x="110" y="54" width="445" height="32" uuid="3bd1902d-5aed-41b3-a948-33d3f610c630"/>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
@@ -266,13 +263,90 @@
 				</textElement>
 				<text><![CDATA[Log de alterações]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="158" y="15" width="100" height="20" uuid="3079c689-1934-42e2-8ec9-11e73cfa0f0c"/>
+				<text><![CDATA[codigoFormatado]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="181" y="17" width="184" height="20" uuid="3b8042af-f2e4-4be2-8a28-7b1c308f91b0"/>
-				<textElement>
-					<font size="15" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cod_formatado}]]></textFieldExpression>
+				<reportElement x="258" y="15" width="100" height="20" uuid="ef6027e9-8312-4a4b-8625-2d4118bd1cec"/>
+				<textFieldExpression><![CDATA[$F{codigoFormatado}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement key="table 5" style="table 5" x="69" y="292" width="360" height="140" isPrintWhenDetailOverflows="true" uuid="63bbc11c-b9e4-4520-8a68-900ce9d174ae"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="LogRelatorio" uuid="39e22e6c-9675-4c33-b83f-ba05a8b1ea89">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="d5cf8f22-50cb-4751-a8f2-b9503767df9c">
+						<jr:tableHeader style="table 5_TH" height="30"/>
+						<jr:tableFooter style="table 5_TH" height="30"/>
+						<jr:columnHeader style="table 5_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ec14a788-1c0e-42b2-ac35-6219b68da0db"/>
+								<text><![CDATA[idrequisito]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 5_CH" height="30"/>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="5e0f3fc5-3728-4284-ae8b-79e0021f2147"/>
+								<textFieldExpression><![CDATA[$F{idrequisito}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6fc1e4a5-982f-429b-a3d0-b38d9fa9237e">
+						<jr:tableHeader style="table 5_TH" height="30"/>
+						<jr:tableFooter style="table 5_TH" height="30"/>
+						<jr:columnHeader style="table 5_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5b9f684c-c636-400e-8e47-dc849c65d28f"/>
+								<text><![CDATA[alteracoes]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 5_CH" height="30"/>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="4206065a-0903-46c7-8371-19f96c90a09e"/>
+								<textFieldExpression><![CDATA[$F{alteracoes}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="38df3028-9ed1-429e-8aa1-98946ebb80c2">
+						<jr:tableHeader style="table 5_TH" height="30"/>
+						<jr:tableFooter style="table 5_TH" height="30"/>
+						<jr:columnHeader style="table 5_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7f03f4b6-59fc-44cd-a0b7-2dea5dd27e0a"/>
+								<text><![CDATA[idpessoa]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 5_CH" height="30"/>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="11d0a983-a09f-436a-a842-1d9e655ecb74"/>
+								<textFieldExpression><![CDATA[$F{idpessoa}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="feae8d8a-3975-4aa4-ae08-25b2582b6038">
+						<jr:tableHeader style="table 5_TH" height="30"/>
+						<jr:tableFooter style="table 5_TH" height="30"/>
+						<jr:columnHeader style="table 5_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f30dc528-a3c5-48c8-9753-37d638ca9882"/>
+								<text><![CDATA[versao]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 5_CH" height="30"/>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="42e9f597-5b52-45c8-9639-5effc49c6344"/>
+								<textFieldExpression><![CDATA[$F{versao}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</detail>
 	<columnFooter>
