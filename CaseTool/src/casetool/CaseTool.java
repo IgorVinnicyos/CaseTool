@@ -12,7 +12,7 @@ import model.*;
 import org.hibernate.Session;
 import controller.*;
 import javax.swing.JOptionPane;
-import relatorio.Relatorio;
+import telas.Relatorio;
 import telas.TelaLogin;
 import util.HibernateUtil;
 

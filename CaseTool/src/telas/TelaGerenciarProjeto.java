@@ -10,13 +10,29 @@ import controller.LoginController;
 import controller.PessoaController;
 import controller.RastreamentoController;
 import controller.RequisitoController;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.pessoa;
 import model.projeto;
 import model.rel_pessoa_equipe;
 import model.requisito;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
 
 /**
  *
@@ -73,6 +89,7 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -146,7 +163,21 @@ public class TelaGerenciarProjeto extends CriadorTelas {
 
         jMenuBar2.add(jMenu2);
 
-        jMenu3.setText("Log");
+        jMenu3.setText("Relatório");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem7.setText("Gerar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
         jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);
@@ -242,6 +273,31 @@ public class TelaGerenciarProjeto extends CriadorTelas {
         jDesktopPane1.add(TelaGerenciarRelacionamentoReq.getInstance());
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/engenharia_software","root","");
+            InputStream is = getClass().getResourceAsStream("Relatorio.jrxml");
+            JasperReport jasperxml = JasperCompileManager.compileReport(is);
+            JasperPrint printReport = JasperFillManager.fillReport(jasperxml, null, conn);
+            JasperViewer view = new JasperViewer(printReport, false);
+            view.setTitle("Ficha de protocolo");
+            view.setVisible(true);
+            conn.close();
+        } catch (JRException ex) {
+            Logger.getLogger(TelaGerenciarProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaGerenciarProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -291,5 +347,6 @@ public class TelaGerenciarProjeto extends CriadorTelas {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }
