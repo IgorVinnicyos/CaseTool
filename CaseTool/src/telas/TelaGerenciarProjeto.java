@@ -29,8 +29,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 
@@ -282,7 +280,7 @@ public class TelaGerenciarProjeto extends CriadorTelas {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/engenharia_software","root","");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/engenharia_software?zeroDateTimeBehavior=convertToNull","root","");
             InputStream is = getClass().getResourceAsStream("Relatorio.jrxml");
             JasperReport jasperxml = JasperCompileManager.compileReport(is);
             JasperPrint printReport = JasperFillManager.fillReport(jasperxml, null, conn);
@@ -291,7 +289,7 @@ public class TelaGerenciarProjeto extends CriadorTelas {
             view.setVisible(true);
             conn.close();
         } catch (JRException ex) {
-            Logger.getLogger(TelaGerenciarProjeto.class.getName()).log(Level.SEVERE, null, ex);
+            javax.swing.JOptionPane.showMessageDialog(null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(TelaGerenciarProjeto.class.getName()).log(Level.SEVERE, null, ex);
         }
