@@ -9,6 +9,7 @@ import controller.LogController;
 import controller.PessoaController;
 import controller.RequisitoController;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import model.projeto;
 import model.requisito;
 
@@ -210,10 +211,11 @@ public class TelaAlterarRequisito extends CriadorInternalFrame {
         } else if (jTextArea1.getText().isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(null, "Erro, forneça um comentário!");
         } else {
-            if (requisito.getTipo_requisito() != jComboBox1.getSelectedItem().toString()) {
+            if (!requisito.getTipo_requisito().equals( jComboBox1.getSelectedItem().toString())) {
                 requisito.setTipo_requisito(jComboBox1.getSelectedItem().toString());
                 requisito.setCod_req(RequisitoController.getInstance().geraNovoCodigo(jComboBox1.getSelectedItem().toString(), Projeto.getIdprojeto()));
                 javax.swing.JOptionPane.showMessageDialog(null, "Atenção, o novo código do requisito será: " + requisito.getCodigoFormatado());
+              
             }
             requisito.setDescricao(jTextArea2.getText());
             requisito.setTempo_estimado(Integer.parseInt(jTextField2.getText()));
