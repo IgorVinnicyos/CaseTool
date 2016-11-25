@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0a3d033-30a1-4fce-b8f1-49e76577ee0a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="300"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -291,7 +291,11 @@
 	<subDataset name="LogRelatorio" uuid="001f5ca1-f8dd-4ad6-a11f-a83fb6225d29">
 		<parameter name="idreq" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select * from log where idrequisito = $P{idreq} order by versao ASC]]>
+			<![CDATA[SELECT log.*,pessoa.nome
+FROM log
+LEFT OUTER JOIN pessoa ON log.idpessoa = pessoa.idpessoa
+where idrequisito = $P{idreq} order by versao ASC
+]]>
 		</queryString>
 		<field name="idlog" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
@@ -311,6 +315,7 @@
 		<field name="data_modificacao" class="java.sql.Timestamp">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
+		<field name="nome" class="java.lang.String"/>
 		<group name="versao">
 			<groupExpression><![CDATA[$F{versao}]]></groupExpression>
 		</group>
@@ -318,7 +323,10 @@
 	<subDataset name="PessoasRelatorio" uuid="b3875263-5fdf-4083-a084-5b9adb6225f2">
 		<parameter name="idreq" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select * from rel_pessoa_requisito where idrequisito = $P{idreq}]]>
+			<![CDATA[SELECT rel_pessoa_requisito.*,pessoa.nome
+FROM rel_pessoa_requisito
+LEFT OUTER JOIN pessoa ON rel_pessoa_requisito.idpessoa = pessoa.idpessoa
+WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 		</queryString>
 		<field name="id_rel_pes_req" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
@@ -344,6 +352,7 @@
 		<field name="custo" class="java.lang.Double">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
+		<field name="nome" class="java.lang.String"/>
 		<group name="idpessoa">
 			<groupExpression><![CDATA[$F{idpessoa}]]></groupExpression>
 		</group>
@@ -479,17 +488,15 @@
 								<textElement verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[ID pessoa]]></text>
+								<text><![CDATA[Pessoa]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 9_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 9_TD" height="35" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="10" width="90" height="20" uuid="b2e10212-09f3-47ce-9e1e-9dcfa44f2ba4"/>
-								<textElement verticalAlignment="Middle">
-									<font size="11"/>
-								</textElement>
-								<textFieldExpression><![CDATA[" "+$F{idpessoa}]]></textFieldExpression>
+								<reportElement x="0" y="0" width="90" height="35" uuid="cf42bc5f-fb3c-4764-bcd9-d9ecfa88f250"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[" "+$F{nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -649,17 +656,15 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[ID Pessoa]]></text>
+								<text><![CDATA[ Pessoa]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 13_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 13_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="83" height="30" isPrintWhenDetailOverflows="true" uuid="259dfc2f-e0a7-41c9-a53d-791227174cd5"/>
-								<textElement verticalAlignment="Middle">
-									<font size="11"/>
-								</textElement>
-								<textFieldExpression><![CDATA[" "+$F{idpessoa}]]></textFieldExpression>
+								<reportElement x="0" y="0" width="83" height="30" uuid="b704ddd8-a17a-4141-aa33-6eb85b040d04"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[" "+$F{nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
