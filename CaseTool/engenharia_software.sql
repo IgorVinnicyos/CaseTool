@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: 13-Nov-2016 às 17:12
--- Versão do servidor: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+-- Host: 127.0.0.1
+-- Generation Time: 30-Nov-2016 às 00:25
+-- Versão do servidor: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,6 +32,13 @@ CREATE TABLE `equipe` (
   `nome_equipe` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `equipe`
+--
+
+INSERT INTO `equipe` (`idequipe`, `data_criacao`, `nome_equipe`) VALUES
+(1, '2016-11-29 22:49:17', 'EquipeTeste');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +49,13 @@ CREATE TABLE `funcao` (
   `idfuncao` int(11) NOT NULL,
   `descricao` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `funcao`
+--
+
+INSERT INTO `funcao` (`idfuncao`, `descricao`) VALUES
+(1, 'programador');
 
 -- --------------------------------------------------------
 
@@ -58,6 +72,28 @@ CREATE TABLE `log` (
   `data_modificacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `log`
+--
+
+INSERT INTO `log` (`idlog`, `idrequisito`, `idpessoa`, `versao`, `alteracoes`, `data_modificacao`) VALUES
+(1, 1, 1, 1, 'Requisito criado', '2016-11-29 22:53:56'),
+(2, 2, 1, 1, 'Requisito criado', '2016-11-29 22:54:30'),
+(3, 3, 1, 1, 'Requisito criado', '2016-11-29 22:55:02'),
+(4, 4, 1, 1, 'Requisito criado', '2016-11-29 22:57:10'),
+(5, 5, 1, 1, 'Requisito criado', '2016-11-29 22:58:49'),
+(6, 6, 1, 1, 'Requisito criado', '2016-11-29 23:01:22'),
+(7, 7, 1, 1, 'Requisito criado', '2016-11-29 23:03:18'),
+(8, 8, 1, 1, 'Requisito criado', '2016-11-29 23:04:12'),
+(9, 9, 1, 1, 'Requisito criado', '2016-11-29 23:05:02'),
+(10, 10, 1, 1, 'Requisito criado', '2016-11-29 23:05:40'),
+(11, 11, 1, 1, 'Requisito criado', '2016-11-29 23:06:26'),
+(12, 12, 1, 1, 'Requisito criado', '2016-11-29 23:07:09'),
+(13, 13, 1, 1, 'Requisito criado', '2016-11-29 23:08:02'),
+(14, 14, 1, 1, 'Requisito criado', '2016-11-29 23:10:00'),
+(15, 15, 1, 1, 'Requisito criado', '2016-11-29 23:11:40'),
+(16, 16, 1, 1, 'Requisito criado', '2016-11-29 23:13:53');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +106,13 @@ CREATE TABLE `login` (
   `email` varchar(100) DEFAULT NULL,
   `senha` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `login`
+--
+
+INSERT INTO `login` (`idlogin`, `idpessoa`, `email`, `senha`) VALUES
+(1, 1, 'jonata', '1234');
 
 -- --------------------------------------------------------
 
@@ -103,6 +146,13 @@ CREATE TABLE `pessoa` (
   `nivel_acesso` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `pessoa`
+--
+
+INSERT INTO `pessoa` (`idpessoa`, `nome`, `sexo`, `nivel_acesso`) VALUES
+(1, 'jonata', 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -120,6 +170,13 @@ CREATE TABLE `projeto` (
   `idequipe` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `projeto`
+--
+
+INSERT INTO `projeto` (`idprojeto`, `data_entrada`, `data_prazo`, `descricao`, `concluido`, `data_inicio`, `data_termino`, `idequipe`, `nome`) VALUES
+(1, '2016-11-29 22:49:30', '2016-11-10', 'teste', 0, NULL, NULL, 1, 'ProjetoTeste');
 
 -- --------------------------------------------------------
 
@@ -146,6 +203,13 @@ CREATE TABLE `rel_pessoa_equipe` (
   `idequipe` int(11) NOT NULL,
   `idfuncao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `rel_pessoa_equipe`
+--
+
+INSERT INTO `rel_pessoa_equipe` (`id_rel_pes_eqp`, `idpessoa`, `idequipe`, `idfuncao`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -184,6 +248,28 @@ CREATE TABLE `requisito` (
   `restricoes` text NOT NULL,
   `prioridade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `requisito`
+--
+
+INSERT INTO `requisito` (`idrequisito`, `concluido`, `tempo_estimado`, `descricao`, `data_inicio`, `data_termino`, `idprojeto`, `tipo_requisito`, `cod_req`, `expectativas`, `restricoes`, `prioridade`) VALUES
+(1, 0, 300, 'Requisito que permite o gerente do produto efetuar seu login de acesso para a elaboração do cadastro do projeto e funcionários.', NULL, NULL, 1, 'RF', 1, 'jkljdfasd', 'jklhj', 3),
+(2, 0, 300, 'Aba do programa destinada a elaboração de um novo projeto ou alterações (gerenciamento) do mesmo. Dentro deste encontramos as opções de “novo projeto” e “gerenciar”.\r\n', NULL, NULL, 1, 'RF', 2, '		', '		', 3),
+(3, 0, 300, 'NOVO PROJETO - Neste, podemos elaborar um novo projeto, colocando o nome, equipe, descrição e prazo (tempo do projeto).\r\n', NULL, NULL, 1, 'RF', 3, '		', 'KJLK	', 3),
+(4, 0, 300, 'Gerenciar Projeto - O sistema deve conter uma tela para gerenciamento de projetos, na qual seja possível selecionar um dentre os projetos, ', NULL, NULL, 1, 'RF', 4, '		', '		', 3),
+(5, 0, 300, 'GERENCIAR EQUIPES - O Sistema deve fornecer uma tela para gerenciamento de equipes permitindo a criação de novas equipes e relacionar pessoas/funções nas equipes.', NULL, NULL, 1, 'RF', 5, '		', '		', 3),
+(6, 0, 300, 'O sistema deve conter uma tela de gerenciamento de funções onde o usuário possa especificar novas funções e custos;', NULL, NULL, 1, 'RF', 6, '		', '		', 3),
+(7, 0, 300, 'Gerenciar Pessoas - O sistema deve fornecer tela para cadastro de pessoas que serão envolvidas em projetos posteriormente.', NULL, NULL, 1, 'RF', 7, '<Cadastro de Pessoas>\r\nNesta opção, podemos realizar o cadastro de pessoas incluindo o nome, sexo (masculino ou feminino) e o nível de acesso ao projeto.\r\n<Gerenciar Pessoas>\r\nAba destinada para realizar o gerenciamento dos funcionários já cadastrados.', '		', 3),
+(8, 0, 300, 'PADRÃO - Todo o projeto deverá ser feito utilizando uma arquitetura separada em camadas (abas), onde cada uma dessas conterá apenas os algoritmos relacionados à sua responsabilidade.', NULL, NULL, 1, 'RFN', 1, '		', '		', 3),
+(9, 0, 300, 'LOGIN - O usuário autorizado deverá efetuar login no sistema para poder realizar as operações de manutenção de cadastros de usuários autorizados e documentos.', NULL, NULL, 1, 'RF', 8, '		', '		', 3),
+(10, 0, 300, 'INTERFACE - O sistema deve ter uma interface de fácil utilização.', NULL, NULL, 1, 'RF', 9, '		', '		', 3),
+(11, 0, 0, 'Linguagem de programação - O sistema deve ser desenvolvido em java.', NULL, NULL, 1, 'RF', 10, '		', '		', 2),
+(12, 0, 0, 'O sistema deve ser desenvolvido em uma arquitetura em camadas.', NULL, NULL, 1, 'RO', 1, '		', '		', 3),
+(13, 0, 0, 'Compatibilidade - A camada de aplicação compatível com desktop de mercado.', NULL, NULL, 1, 'RO', 2, '		', '		', 2),
+(14, 0, 0, 'Estimativa de Custo -  O sistema deve fornecer estimativa de custo de acordo com que foi especificado no cadastro de funções de pessoas.', NULL, NULL, 1, 'RF', 11, 'Impresso em relatório', '		', 2),
+(15, 0, 300, 'Relatório - O sistema deve imprimir relatório contendo informações importantes sobre cada requisito', NULL, NULL, 1, 'RF', 12, '		', '		', 3),
+(16, 0, 0, 'Requisitos - O sistema deve permitir o cadastro de requisitos espeficicando o tipo de requisito, restrições, expectativas, tempo estimado e prioridade.', NULL, NULL, 1, 'RF', 13, '		', '				', 1);
 
 --
 -- Indexes for dumped tables
@@ -285,22 +371,22 @@ ALTER TABLE `requisito`
 -- AUTO_INCREMENT for table `equipe`
 --
 ALTER TABLE `equipe`
-  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idequipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `funcao`
 --
 ALTER TABLE `funcao`
-  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `idlog` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `niveis_acesso`
 --
@@ -310,12 +396,12 @@ ALTER TABLE `niveis_acesso`
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `projeto`
 --
 ALTER TABLE `projeto`
-  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idprojeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `rastreamento_requisitos`
 --
@@ -325,7 +411,7 @@ ALTER TABLE `rastreamento_requisitos`
 -- AUTO_INCREMENT for table `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
-  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `rel_pessoa_requisito`
 --
@@ -335,7 +421,7 @@ ALTER TABLE `rel_pessoa_requisito`
 -- AUTO_INCREMENT for table `requisito`
 --
 ALTER TABLE `requisito`
-  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idrequisito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
