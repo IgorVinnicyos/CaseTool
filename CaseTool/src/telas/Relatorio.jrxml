@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0a3d033-30a1-4fce-b8f1-49e76577ee0a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="300"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -294,8 +294,7 @@
 			<![CDATA[SELECT log.*,pessoa.nome
 FROM log
 LEFT OUTER JOIN pessoa ON log.idpessoa = pessoa.idpessoa
-where idrequisito = $P{idreq} order by versao ASC
-]]>
+where idrequisito = $P{idreq} order by versao ASC]]>
 		</queryString>
 		<field name="idlog" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
@@ -580,7 +579,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<elementGroup/>
 			</elementGroup>
 			<textField>
-				<reportElement x="125" y="218" width="16" height="12" uuid="91944f96-cf4f-4515-940d-cbfc96e857e5"/>
+				<reportElement x="107" y="191" width="44" height="38" uuid="91944f96-cf4f-4515-940d-cbfc96e857e5"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -594,21 +593,21 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 			<elementGroup/>
 			<elementGroup/>
 			<staticText>
-				<reportElement x="151" y="218" width="58" height="12" uuid="f96c964b-4e62-46a0-b23d-04a8aae9468a"/>
+				<reportElement x="151" y="202" width="57" height="24" uuid="f96c964b-4e62-46a0-b23d-04a8aae9468a"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Essencial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="282" y="218" width="69" height="12" uuid="d08d80b6-fbd7-4d39-a932-e49c46b34bba"/>
+				<reportElement x="260" y="198" width="60" height="28" uuid="d08d80b6-fbd7-4d39-a932-e49c46b34bba"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Importante]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="252" y="217" width="16" height="12" uuid="bd369edf-1af4-48a8-84b4-f1c62dd1b5ce"/>
+				<reportElement x="208" y="191" width="52" height="37" uuid="bd369edf-1af4-48a8-84b4-f1c62dd1b5ce"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -620,7 +619,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<textFieldExpression><![CDATA[($F{prioridade}.intValue()==2)? " X" :""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="396" y="217" width="16" height="12" uuid="5edbb477-14be-4728-a9c9-d634c171b7fb"/>
+				<reportElement x="320" y="193" width="47" height="37" uuid="5edbb477-14be-4728-a9c9-d634c171b7fb"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -632,7 +631,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<textFieldExpression><![CDATA[($F{prioridade}.intValue()==3)? " X" :""]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="429" y="218" width="69" height="12" uuid="faab5c16-d42a-448f-9c1e-40b278117640"/>
+				<reportElement x="367" y="200" width="85" height="28" uuid="faab5c16-d42a-448f-9c1e-40b278117640"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
