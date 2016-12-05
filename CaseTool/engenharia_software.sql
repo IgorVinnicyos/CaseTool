@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 30-Nov-2016 às 00:25
--- Versão do servidor: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Host: localhost
+-- Generation Time: 05-Dez-2016 às 20:33
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 7.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -47,15 +47,17 @@ INSERT INTO `equipe` (`idequipe`, `data_criacao`, `nome_equipe`) VALUES
 
 CREATE TABLE `funcao` (
   `idfuncao` int(11) NOT NULL,
-  `descricao` text NOT NULL
+  `descricao` text NOT NULL,
+  `custo` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `funcao`
 --
 
-INSERT INTO `funcao` (`idfuncao`, `descricao`) VALUES
-(1, 'programador');
+INSERT INTO `funcao` (`idfuncao`, `descricao`, `custo`) VALUES
+(1, 'programador', 50),
+(2, 'Engenheiro de teste', 100);
 
 -- --------------------------------------------------------
 
@@ -151,7 +153,8 @@ CREATE TABLE `pessoa` (
 --
 
 INSERT INTO `pessoa` (`idpessoa`, `nome`, `sexo`, `nivel_acesso`) VALUES
-(1, 'jonata', 0, 1);
+(1, 'jonata', 0, 1),
+(2, 'Igor', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -209,7 +212,8 @@ CREATE TABLE `rel_pessoa_equipe` (
 --
 
 INSERT INTO `rel_pessoa_equipe` (`id_rel_pes_eqp`, `idpessoa`, `idequipe`, `idfuncao`) VALUES
-(1, 1, 1, 1);
+(1, 1, 1, 2),
+(2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -222,8 +226,8 @@ CREATE TABLE `rel_pessoa_requisito` (
   `idrequisito` int(11) NOT NULL,
   `idpessoa` int(11) NOT NULL,
   `descricao_atividade` text NOT NULL,
-  `data_inicio` date DEFAULT NULL,
-  `data_termino` date DEFAULT NULL,
+  `data_inicio` datetime DEFAULT NULL,
+  `data_termino` datetime DEFAULT NULL,
   `tempo` time DEFAULT NULL,
   `custo` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -376,7 +380,7 @@ ALTER TABLE `equipe`
 -- AUTO_INCREMENT for table `funcao`
 --
 ALTER TABLE `funcao`
-  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `log`
 --
@@ -396,7 +400,7 @@ ALTER TABLE `niveis_acesso`
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idpessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `projeto`
 --
@@ -411,7 +415,7 @@ ALTER TABLE `rastreamento_requisitos`
 -- AUTO_INCREMENT for table `rel_pessoa_equipe`
 --
 ALTER TABLE `rel_pessoa_equipe`
-  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rel_pes_eqp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `rel_pessoa_requisito`
 --

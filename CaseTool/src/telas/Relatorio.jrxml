@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0a3d033-30a1-4fce-b8f1-49e76577ee0a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -322,9 +322,12 @@ where idrequisito = $P{idreq} order by versao ASC]]>
 	<subDataset name="PessoasRelatorio" uuid="b3875263-5fdf-4083-a084-5b9adb6225f2">
 		<parameter name="idreq" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[SELECT rel_pessoa_requisito.*,pessoa.nome
+			<![CDATA[SELECT rel_pessoa_requisito.*,pessoa.nome,TIME_FORMAT(TIMEDIFF(rel_pessoa_requisito.data_termino, rel_pessoa_requisito.data_inicio),'%H')* funcao.custo AS 'preco'
 FROM rel_pessoa_requisito
 LEFT OUTER JOIN pessoa ON rel_pessoa_requisito.idpessoa = pessoa.idpessoa
+LEFT OUTER JOIN rel_pessoa_equipe ON rel_pessoa_equipe.idpessoa = pessoa.idpessoa
+LEFT OUTER JOIN funcao ON funcao.idfuncao = rel_pessoa_equipe.idfuncao
+
 WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 		</queryString>
 		<field name="id_rel_pes_req" class="java.lang.Integer">
@@ -352,6 +355,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="nome" class="java.lang.String"/>
+		<field name="preco" class="java.lang.Double"/>
 		<group name="idpessoa">
 			<groupExpression><![CDATA[$F{idpessoa}]]></groupExpression>
 		</group>
@@ -579,7 +583,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<elementGroup/>
 			</elementGroup>
 			<textField>
-				<reportElement x="107" y="191" width="44" height="38" uuid="91944f96-cf4f-4515-940d-cbfc96e857e5"/>
+				<reportElement x="131" y="216" width="20" height="14" uuid="91944f96-cf4f-4515-940d-cbfc96e857e5"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -593,21 +597,21 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 			<elementGroup/>
 			<elementGroup/>
 			<staticText>
-				<reportElement x="151" y="202" width="57" height="24" uuid="f96c964b-4e62-46a0-b23d-04a8aae9468a"/>
+				<reportElement x="161" y="216" width="57" height="24" uuid="f96c964b-4e62-46a0-b23d-04a8aae9468a"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Essencial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="260" y="198" width="60" height="28" uuid="d08d80b6-fbd7-4d39-a932-e49c46b34bba"/>
+				<reportElement x="260" y="214" width="72" height="28" uuid="d08d80b6-fbd7-4d39-a932-e49c46b34bba"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Importante]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="208" y="191" width="52" height="37" uuid="bd369edf-1af4-48a8-84b4-f1c62dd1b5ce"/>
+				<reportElement x="231" y="216" width="20" height="14" uuid="bd369edf-1af4-48a8-84b4-f1c62dd1b5ce"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -619,7 +623,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<textFieldExpression><![CDATA[($F{prioridade}.intValue()==2)? " X" :""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="320" y="193" width="47" height="37" uuid="5edbb477-14be-4728-a9c9-d634c171b7fb"/>
+				<reportElement x="351" y="214" width="20" height="14" uuid="5edbb477-14be-4728-a9c9-d634c171b7fb"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -631,7 +635,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 				<textFieldExpression><![CDATA[($F{prioridade}.intValue()==3)? " X" :""]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="367" y="200" width="85" height="28" uuid="faab5c16-d42a-448f-9c1e-40b278117640"/>
+				<reportElement x="379" y="214" width="85" height="28" uuid="faab5c16-d42a-448f-9c1e-40b278117640"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -721,7 +725,7 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 13_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 13_TD" height="30" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="109" height="30" isPrintWhenDetailOverflows="true" uuid="69d0b654-1b7d-428a-8331-06c6850449f6"/>
 								<textElement verticalAlignment="Middle">
 									<font size="11"/>
@@ -730,10 +734,10 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="74" uuid="ebb65f25-ed3c-422f-8d83-78908fb1f6a4">
+					<jr:column width="76" uuid="ebb65f25-ed3c-422f-8d83-78908fb1f6a4">
 						<jr:columnHeader style="table 13_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="74" height="30" uuid="32523126-0843-40ae-8d04-2db25a45c949"/>
+								<reportElement x="0" y="0" width="76" height="30" uuid="32523126-0843-40ae-8d04-2db25a45c949"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -743,11 +747,11 @@ WHERE rel_pessoa_requisito.idrequisito = $P{idreq}]]>
 						<jr:columnFooter style="table 13_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 13_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="74" height="30" isPrintWhenDetailOverflows="true" uuid="ce87d269-0283-4e9f-b48e-bc53870615bf"/>
+								<reportElement x="0" y="0" width="76" height="30" uuid="048b83d0-8559-437e-b20d-25b013de91cc"/>
 								<textElement verticalAlignment="Middle">
-									<font size="11" isBold="false"/>
+									<font size="11"/>
 								</textElement>
-								<textFieldExpression><![CDATA[" "+$F{custo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{preco} == null)?"R$ 0": "R$ "+$F{preco}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
